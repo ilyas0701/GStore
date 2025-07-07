@@ -12,8 +12,10 @@ namespace GameStore.DAL
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             GameRepository = new GameRepository(context);
+            CommentRepository = new CommentRepository(context);
         }
         public IGameRepository GameRepository { get; }
+        public ICommentRepository CommentRepository { get; }
 
         public Task CommitAsync(CancellationToken cancellationToken)
         {
