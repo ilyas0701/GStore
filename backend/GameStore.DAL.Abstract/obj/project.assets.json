@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net9.0": {}
+    "net9.0": {
+      "GameStore.Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/GameStore.Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/GameStore.Models.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "GameStore.Models/1.0.0": {
+      "type": "project",
+      "path": "../GameStore.Models/GameStore.Models.csproj",
+      "msbuildProject": "../GameStore.Models/GameStore.Models.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net9.0": []
+    "net9.0": [
+      "GameStore.Models >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\ilyas\\.nuget\\packages\\": {},
@@ -39,7 +58,11 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "F:\\Projects\\GStore\\backend\\GameStore.Models\\GameStore.Models.csproj": {
+              "projectPath": "F:\\Projects\\GStore\\backend\\GameStore.Models\\GameStore.Models.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
