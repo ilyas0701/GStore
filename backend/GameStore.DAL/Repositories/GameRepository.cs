@@ -10,6 +10,5 @@ namespace GameStore.DAL.Repositories
         {
         }
         // Additional methods specific to DbGame can be added here if needed
-        // For example, you might want to implement methods for filtering or sorting games
     }
 }
