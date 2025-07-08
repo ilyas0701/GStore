@@ -14,16 +14,12 @@ namespace GameStore.DAL
             GameRepository = new GameRepository(context);
             CommentRepository = new CommentRepository(context);
             GenreRepository = new GenreRepository(context);
-            GenreGameRepository = new GenreGameRepository(context);
             PlatformTypeRepository = new PlatformTypeRepository(context);
-            PlatformTypeGameRepository = new PlatformTypeGameRepository(context);
         }
         public IGameRepository GameRepository { get; }
         public ICommentRepository CommentRepository { get; }
         public IGenreRepository GenreRepository { get; }
-        public IGenreGameRepository GenreGameRepository { get; }
         public IPlatformTypeRepository PlatformTypeRepository { get; }
-        public IPlatformTypeGameRepository PlatformTypeGameRepository { get; }
 
         public Task CommitAsync(CancellationToken cancellationToken)
         {
