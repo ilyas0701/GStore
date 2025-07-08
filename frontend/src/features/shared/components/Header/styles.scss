@@ -1,0 +1,22 @@
+header {
+  max-width: max-content;
+  backdrop-filter: blur(20px);
+  background: rgba(0, 0, 0, 0.8);
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.1);
+  border-image: initial;
+  padding: 12px 24px;
+  border-radius: 9999px;
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    gap: 24px;
+
+    a {
+      font-size: 1.5rem;
+    }
+  }
+}
