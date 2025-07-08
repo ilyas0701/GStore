@@ -9,5 +9,8 @@
         public decimal Price { get; set; }
         public string? ImgUrl { get; set; }
         public DateTime ReleaseAtDate { get; set; }
+        public List<DbComment> Comments { get; set; } = [];
+        public List<DbGenre> Genres { get; set; } = [];
+        public List<DbPlatformType> PlatformTypes { get; set; } = [];  
     }
 }
