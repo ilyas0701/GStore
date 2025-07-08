@@ -3,8 +3,17 @@ export interface User {
   username: string
   email: string
   password: string
-  image_url?: string
+  image_url?: string | null
   role: string
+  created_at: string
+}
+
+export interface UserDTO {
+  id: string | number
+  username: string
+  email: string
+  image_url?: string | null
+  role?: string
   created_at: string
 }
 
