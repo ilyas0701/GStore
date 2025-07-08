@@ -1,4 +1,4 @@
-import type { UserDTO } from "@/features/auth/types/user"
+import type { UserDTO } from "@/features/shared/types/user"
 import users from "@/data/MOCK_DATA.json"
 
 // TODO: replace with env

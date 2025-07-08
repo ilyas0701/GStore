@@ -1,4 +1,4 @@
-import type { UserDTO } from "@/features/auth/types/user"
+import type { UserDTO } from "@/features/shared/types/user"
 import Image from "next/image"
 import { fetchUsers } from "@/features/users/service/users.service"
 
