@@ -5,7 +5,7 @@ export const Header = () => {
   return (
     <header>
       <ul>
-        <Link href="/">Store</Link>
+        <Link href="/store">Store</Link>
         <Link href="/library">Library</Link>
         <Link href="/users">Users</Link>
         <Link href="/profile">Profile</Link>
