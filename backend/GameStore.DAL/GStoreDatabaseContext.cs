@@ -14,6 +14,9 @@ namespace GameStore.DAL
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new DbGameConfiguration());
+            modelBuilder.ApplyConfiguration(new DbCommentConfiguration());
+            modelBuilder.ApplyConfiguration(new DbGenreConfiguration());
+            modelBuilder.ApplyConfiguration(new DbPlatformTypeConfiguration());
         }
     }
 }
