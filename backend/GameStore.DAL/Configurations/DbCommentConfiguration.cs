@@ -11,7 +11,10 @@ namespace GameStore.DAL.Configurations
         public void Configure(EntityTypeBuilder<DbComment> builder)
         {
             builder.ToTable("Comments");
-            
+
+            builder.Property(c => c.Id)
+                .ValueGeneratedOnAdd(); 
+
             builder.Property(c => c.Name)
                 .IsRequired()
                 .HasMaxLength(100);

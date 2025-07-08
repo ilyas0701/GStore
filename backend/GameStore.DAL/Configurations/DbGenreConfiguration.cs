@@ -11,9 +11,15 @@ namespace GameStore.DAL.Configurations
         {
             builder.ToTable("Genres");
 
+            builder.Property(g => g.Id)
+                .ValueGeneratedOnAdd();
+
             builder.Property(g => g.Name)
                 .IsRequired()
                 .HasMaxLength(50);
+
+            builder.HasIndex(g => g.Name)
+                .IsUnique();
 
             builder.HasMany(g => g.Games)
                 .WithMany(g => g.Genres);

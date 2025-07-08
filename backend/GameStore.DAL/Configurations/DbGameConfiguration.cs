@@ -11,6 +11,9 @@ namespace GameStore.DAL.Configurations
         {
             builder.ToTable("Games");
 
+            builder.Property(g => g.Id)
+                .ValueGeneratedOnAdd();
+
             builder.Property(g => g.Title)
                 .IsRequired()
                 .HasMaxLength(100);
