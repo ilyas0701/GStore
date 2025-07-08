@@ -23,6 +23,11 @@ namespace GameStore.DAL.Configurations
 
             builder.HasMany(g => g.Games)
                 .WithMany(g => g.Genres);
+
+            builder.HasOne(g => g.ParentGenre)
+                .WithMany(g => g.SubGenres)
+                .HasForeignKey(g => g.ParentGenreId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
