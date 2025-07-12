@@ -10,8 +10,6 @@ namespace GameStore.Web
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddAuthorization();
-
             builder.Services.AddControllers();
 
             builder.Services.AddDbContext<GStoreDatabaseContext>(options =>
