@@ -1,0 +1,82 @@
+[
+  {
+    "Id": 1,
+    "Name": "Strategy"
+  },
+  {
+    "Id": 2,
+    "Name": "RPG"
+  },
+  {
+    "Id": 3,
+    "Name": "Sports"
+  },
+  {
+    "Id": 4,
+    "Name": "Races"
+  },
+  {
+    "Id": 5,
+    "Name": "Action"
+  },
+  {
+    "Id": 6,
+    "Name": "Adventure"
+  },
+  {
+    "Id": 7,
+    "Name": "Puzzle&Skill"
+  },
+  {
+    "Id": 8,
+    "Name": "Misc"
+  },
+
+  {
+    "Id": 10,
+    "Name": "RTS",
+    "ParentGenreId": 1
+  },
+  {
+    "Id": 11,
+    "Name": "TBS",
+    "ParentGenreId": 1
+  },
+
+  {
+    "Id": 20,
+    "Name": "rally",
+    "ParentGenreId": 4
+  },
+  {
+    "Id": 21,
+    "Name": "arcade",
+    "ParentGenreId": 4
+  },
+  {
+    "Id": 22,
+    "Name": "formula",
+    "ParentGenreId": 4
+  },
+  {
+    "Id": 23,
+    "Name": "off-road",
+    "ParentGenreId": 4
+  },
+
+  {
+    "Id": 30,
+    "Name": "FPS",
+    "ParentGenreId": 5
+  },
+  {
+    "Id": 31,
+    "Name": "TPS",
+    "ParentGenreId": 5
+  },
+  {
+    "Id": 32,
+    "Name": "Misc",
+    "ParentGenreId": 5
+  }
+]
