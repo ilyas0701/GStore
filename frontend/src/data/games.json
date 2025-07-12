@@ -1,0 +1,32 @@
+{
+  "games": [
+    {
+      "id": "1",
+      "title": "Skyward Adventure",
+      "description": "Explore floating islands and uncover ancient secrets.",
+      "price": 29.99,
+      "image_url": "http://dummyimage.com/224x100.png/cc0000/ffffff"
+    },
+    {
+      "id": "2",
+      "title": "Pixel Racer",
+      "description": "Retro racing action with customizable cars.",
+      "price": 19.99,
+      "image_url": "http://dummyimage.com/224x100.png/cc0000/ffffff"
+    },
+    {
+      "id": "3",
+      "title": "Mystic Quest",
+      "description": "Embark on a magical journey through enchanted lands.",
+      "price": 39.99,
+      "image_url": "http://dummyimage.com/224x100.png/cc0000/ffffff"
+    },
+    {
+      "id": "4",
+      "title": "Dungeon Crawler",
+      "description": "Battle monsters and collect treasures in endless dungeons.",
+      "price": 24.99,
+      "image_url": "http://dummyimage.com/224x100.png/cc0000/ffffff"
+    }
+  ]
+}
