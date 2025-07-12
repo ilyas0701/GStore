@@ -18,7 +18,7 @@ namespace GameStore.DAL.Configurations
                 .IsRequired()
                 .HasMaxLength(50);
 
-            builder.HasIndex(g => g.Name)
+            builder.HasIndex(g => new { g.Name, g.ParentGenreId })
                 .IsUnique();
 
             builder.HasMany(g => g.Games)

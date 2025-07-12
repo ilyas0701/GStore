@@ -4,12 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GameStore.DAL
 {
-    public class GStoreDatabaseContext : DbContext
+    public class GStoreDatabaseContext(DbContextOptions<GStoreDatabaseContext> options) : DbContext(options)
     {
-        public GStoreDatabaseContext(DbContextOptions options)
-            : base(options)
-        {
-        }
+        public DbSet<DbGame> Games { get; set; }
+        public DbSet<DbComment> Comments { get; set; }
+        public DbSet<DbGenre> Genres { get; set; }
+        public DbSet<DbPlatformType> PlatformTypes { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -5,7 +5,7 @@ namespace GameStore.DAL
     {
         public static List<T> SeedJsonData<T>(string fileName) where T : class
         {
-            var filePath = Path.Combine(AppContext.BaseDirectory, "SeedData", $"{fileName}.json");
+            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Seeds", $"{fileName}.json");
 
             if (!File.Exists(filePath))
             {
