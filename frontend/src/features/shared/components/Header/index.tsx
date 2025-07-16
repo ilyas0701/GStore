@@ -5,10 +5,18 @@ export const Header = () => {
   return (
     <header>
       <ul>
-        <Link href="/store">Store</Link>
-        <Link href="/library">Library</Link>
-        <Link href="/users">Users</Link>
-        <Link href="/profile">Profile</Link>
+        <li>
+          <Link href="/store">Store</Link>
+        </li>
+        <li>
+          <Link href="/library">Library</Link>
+        </li>
+        <li>
+          <Link href="/users">Users</Link>
+        </li>
+        <li>
+          <Link href="/profile">Profile</Link>
+        </li>
       </ul>
     </header>
   )
