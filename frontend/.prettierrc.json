@@ -3,5 +3,5 @@
   "semi": false,
   "tabWidth": 2,
   "trailingComma": "es5",
-  "plugins": ["prettier-plugin-pkg"]
+  "plugins": ["prettier-plugin-pkg", "prettier-plugin-css-order"]
 }
