@@ -1,3 +1,5 @@
+@use '../../../../app/variables' as *;
+
 .store-card {
   display: flex;
   position: relative;
@@ -5,20 +7,20 @@
   justify-content: space-evenly;
   align-items: flex-end;
   gap: 0.75rem;
-  // TODO: variable
-  transition: transform 0.35s ease-in-out;
+  transition: transform $transition-default;
   margin: 1rem 0;
   border: 0.0625rem solid #ccc;
   border-radius: 1rem;
   padding: 1rem;
   width: 18.75rem;
   height: 18.75rem;
-  color: #fff;
+  color: $white;
   text-align: left;
 
   h2 {
     width: 100%;
   }
+
   p {
     opacity: 0;
     transition:
@@ -28,6 +30,7 @@
     max-height: 0;
     overflow: hidden;
   }
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -36,11 +39,13 @@
       opacity: 1;
       max-height: 3rem;
     }
+
     .game-image {
       transition: height 0.35s ease-in-out;
       height: 40%;
     }
   }
+
   .game-image {
     transition: height 0.35s ease-in-out;
     width: 100%;
