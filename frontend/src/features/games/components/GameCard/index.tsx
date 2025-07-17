@@ -10,8 +10,8 @@ export const GameCard = ({ game }: { game: GameCompact }) => {
         <Image
           src={game.image_url || "/placeholder.png"}
           alt={game.title}
-          width={200}
-          height={300}
+          width={260}
+          height={160}
           priority
           draggable={false}
         />
