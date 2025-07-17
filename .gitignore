@@ -369,3 +369,4 @@ sonarlint*
 
 dist/
 .idea/
+.env
