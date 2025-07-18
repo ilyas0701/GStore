@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import type { GameCompact } from "@/features/shared/types/game"
-import { notFound } from "next/navigation"
+import { GameDetails } from "@/features/games/components/GameDetails"
 import { GameGallery } from "@/features/games/components/GameGallery"
 import { fetchGameById } from "@/features/games/service/games.service"
 import "./styles.scss"
@@ -9,12 +9,9 @@ interface Props {
   params: Promise<{ id: string }>
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { id: string }
-}): Promise<Metadata> {
-  const game: GameCompact | undefined = await fetchGameById(params.id)
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params
+  const game: GameCompact | undefined = await fetchGameById(id)
   if (!game) {
     return {
       title: "Game Not Found",
@@ -28,18 +25,12 @@ export async function generateMetadata({
 }
 
 export default async function GameDetailPage(props: Props) {
-  const params = await props.params
-  const game: GameCompact | undefined = await fetchGameById(params.id)
-
-  if (!game) notFound()
+  const { id } = await props.params
 
   return (
     <main className="game-page">
-      <GameGallery id={params.id} />
-      <div className="game-details">
-        <h1>{game.title}</h1>
-        <p>{game.description}</p>
-      </div>
+      <GameGallery id={id} />
+      <GameDetails id={id} />
     </main>
   )
 }
