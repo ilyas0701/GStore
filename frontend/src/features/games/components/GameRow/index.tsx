@@ -16,9 +16,9 @@ export const GameRow = async ({ id, size = 1 }: GameRowProps) => {
 
   return (
     <div className="game-row">
-      {Array.from({ length: size }).map(() => (
+      {Array.from({ length: size }).map((_, index) => (
         <Image
-          key={Math.random()}
+          key={`${game.id}-${index}`}
           className="game-row-image"
           src={game.image_url || "/placeholder.png"}
           alt={game.title}
