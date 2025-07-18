@@ -52,7 +52,7 @@ export const fetchGameMediaById = async (
     })
 
     if (!response.ok) {
-      throw new Error("Failed to fetch game media")
+      throw new Error(`Failed to fetch game media. Status: ${response.status} ${response.statusText}`)
     }
 
     return response.json()
