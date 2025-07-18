@@ -3,18 +3,21 @@
 .game-purchase {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   gap: 1rem;
   border-radius: 0.5rem;
   background: $gray;
-  padding: 0 0.5rem;
+  padding: 0.3rem;
   max-width: 200px;
   height: 48px;
   color: $black;
-
+  p {
+    padding-left: 1rem;
+  }
   .purchase-button {
     border: 0;
-    border-radius: 2rem;
+    border-radius: 0.5rem;
     background: $primary;
     width: 100%;
     height: 100%;
