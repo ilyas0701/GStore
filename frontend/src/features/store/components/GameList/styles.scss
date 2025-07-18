@@ -1,0 +1,9 @@
+.game-list {
+  max-width: 1000px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
