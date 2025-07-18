@@ -3,7 +3,7 @@ import { Logger } from "tslog"
 export const logger = new Logger({
   type: "pretty",
   prettyLogTemplate:
-    "{{yyyy}}.{{mm}}.{{dd}} {{hh}}:{{MM}}:{{ss}}:{{ms}}\t{{logLevelName}}\t[{{filePathWithLine}}{{name}}]\t",
+    "{{yyyy}}.{{mm}}.{{dd}} {{hh}}:{{MM}}:{{ss}}:{{ms}}\t{{logLevelName}}\t",
   stylePrettyLogs: true,
   prettyLogTimeZone: "UTC",
   prettyLogStyles: {

@@ -1,5 +1,4 @@
 "use client"
-import { logger } from "@/features/shared/logger"
 import "./styles.scss"
 
 interface GamePurchaseProps {
@@ -15,8 +14,12 @@ export const GamePurchase = ({ id, price }: GamePurchaseProps) => {
     }).format(value)
   }
 
-  const handlePurchase = () => {
-    logger.info(`Purchasing game with ID: ${id} by price ${formatPrice(price)}`)
+  const handlePurchase = async () => {
+    await fetch("/api/purchase-game", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, price }),
+    })
   }
 
   return (
