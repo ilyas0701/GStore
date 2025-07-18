@@ -6,7 +6,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev --turbopack",
-    "format": "prettier --write .",
+    "format": "prettier --log-level warn --write \"**/*.{ts,tsx}\"",
     "format:check": "prettier --check .",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
