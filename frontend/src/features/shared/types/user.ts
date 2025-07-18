@@ -9,7 +9,7 @@ export interface User {
 }
 
 export interface UserDTO {
-  id: string | number
+  id: string
   username: string
   email: string
   image_url?: string | null
