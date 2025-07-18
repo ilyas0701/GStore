@@ -1,4 +1,5 @@
 "use client"
+import { logger } from "@/features/shared/logger"
 import "./styles.scss"
 
 interface GamePurchaseProps {
@@ -15,8 +16,7 @@ export const GamePurchase = ({ id, price }: GamePurchaseProps) => {
   }
 
   const handlePurchase = () => {
-    // FIXME: replace with ts-log
-    console.warn(`Purchasing game with ID: ${id}`)
+    logger.info(`Purchasing game with ID: ${id} by price ${formatPrice(price)}`)
   }
 
   return (

@@ -1,5 +1,6 @@
 import type { UserDTO } from "@/features/shared/types/user"
 import { NextResponse } from "next/server"
+import { logger } from "@/features/shared/logger"
 import { fetchUsers } from "@/features/users/service/users.service"
 
 export async function GET(): Promise<
@@ -9,7 +10,7 @@ export async function GET(): Promise<
     const users = await fetchUsers()
     return NextResponse.json(users)
   } catch (error) {
-    console.error("Failed to fetch users:", error)
+    logger.fatal("Failed to fetch users", error)
     return NextResponse.json(
       { error: "Failed to fetch users" },
       { status: 500 }
