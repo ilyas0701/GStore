@@ -10,14 +10,7 @@ export default async function UsersPage() {
       <h1>Users List</h1>
       <div>
         {users.map((user: UserDTO) => (
-          <div
-            key={user.id}
-            style={{
-              border: "1px solid #ccc",
-              margin: "10px",
-              padding: "10px",
-            }}
-          >
+          <div key={user.id}>
             <h3>{user.username}</h3>
             <p>Email: {user.email}</p>
             <p>Role: {user.role}</p>
