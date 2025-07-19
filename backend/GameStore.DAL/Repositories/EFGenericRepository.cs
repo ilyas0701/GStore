@@ -29,21 +29,19 @@ namespace GameStore.DAL.Repositories
             return await _dbSet.FindAsync(id);
         }
 
-        public async Task Create(TEntity item)
+        public void Create(TEntity item)
         {
-            await _dbSet.AddAsync(item);
+            _dbSet.AddAsync(item);
         }
 
-        public Task Update(TEntity item)
+        public void Update(TEntity item)
         {
             _context.Entry(item).State = EntityState.Modified;
-            return Task.CompletedTask;
         }
 
-        public Task Remove(TEntity item)
+        public void Remove(TEntity item)
         {
             _dbSet.Remove(item);
-            return Task.CompletedTask;
         }
     }
 }

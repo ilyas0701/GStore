@@ -8,11 +8,11 @@ namespace GameStore.DAL.Abstract
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {
-        Task Create(TEntity item);
+        void Create(TEntity item);
         Task<TEntity> FindById(int id);
         Task<IEnumerable<TEntity>> GetAsync();
         Task<IEnumerable<TEntity>> GetAsync(Func<TEntity, bool> predicate);
-        Task Remove(TEntity item);
-        Task Update(TEntity item);
+        void Remove(TEntity item);
+        void Update(TEntity item);
     }
 }
