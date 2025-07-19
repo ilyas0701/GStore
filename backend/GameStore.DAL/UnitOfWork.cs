@@ -6,9 +6,9 @@ namespace GameStore.DAL
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly DbContext _context;
+        private readonly GStoreDatabaseContext _context;
 
-        public UnitOfWork(DbContext context)
+        public UnitOfWork(GStoreDatabaseContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             GameRepository = new GameRepository(context);
