@@ -14,7 +14,7 @@ export const GameCard = ({ game }: { game: GameCompact }) => {
             alt={game.title}
             width={260}
             height={160}
-            priority
+            priority={true}
             draggable={false}
           />
         </div>

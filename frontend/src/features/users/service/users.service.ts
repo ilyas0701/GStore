@@ -18,8 +18,8 @@ export const fetchUsers = async (): Promise<UserDTO[]> => {
     })
 
     if (!response.ok) {
-      const errorDetails = `Status: ${response.status} ${response.statusText}`;
-      throw new Error(`Failed to fetch users. ${errorDetails}`);
+      const errorDetails = `Status: ${response.status} ${response.statusText}`
+      throw new Error(`Failed to fetch users. ${errorDetails}`)
     }
 
     return response.json()
