@@ -1,0 +1,61 @@
+upstream api-service-upstream {
+    server api-service:8080 fail_timeout=0;
+}
+
+upstream fe-service-upstream {
+    server fe-service:3000 fail_timeout=0;
+}
+
+server {
+    #listen $NGINX_PORT ssl http2;
+    listen $NGINX_PORT http2;
+    server_name localhost;
+
+    #ssl_certificate /etc/nginx/ssl/gstore.local.crt;
+    #ssl_certificate_key /etc/nginx/ssl/gstore.local.key;
+
+     location / {
+        try_files $uri $uri/ @app;
+    }
+  
+    location /api/ {
+        rewrite /api/(.*) /$1 break;
+
+        proxy_redirect off;
+
+        proxy_pass http://api-service-upstream;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection keep-alive;
+        proxy_set_header Host $host:8085;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host:8085;
+        proxy_set_header X-Forwarded-Prefix 'api';
+        proxy_set_header X-Original-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+        proxy_buffer_size 64k;
+        proxy_buffers 4 64k;
+        proxy_busy_buffers_size 64k;
+    }
+	
+	location @app {
+		proxy_redirect off;
+
+        proxy_pass http://fe-service-upstream;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection keep-alive;
+        proxy_set_header Host $host:8085;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host:8085;
+        proxy_set_header X-Original-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+        proxy_buffer_size 64k;
+        proxy_buffers 4 64k;
+        proxy_busy_buffers_size 64k;
+	}
+}

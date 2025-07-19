@@ -1,0 +1,34 @@
+version: "3.9"
+networks:
+    api-network:
+        driver: bridge
+
+services:
+    sqldata:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        networks:
+            - api-network
+    
+    api-service:
+        build:
+            context: ./../backend
+            dockerfile: ./../backend/GameStore.Web/Dockerfile
+        networks:
+            - api-network
+        depends_on:
+            - sqldata
+    
+    fe-service:
+        build:
+            context: ./../frontend
+            dockerfile: ./../frontend/Dockerfile
+        networks:
+            - api-network
+
+    proxy:
+        image: nginx:latest
+        depends_on:
+            - api-service
+            - fe-service
+        networks:
+            - api-network

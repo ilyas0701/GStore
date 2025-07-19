@@ -1,0 +1,29 @@
+services:
+  sqldata:
+    environment:
+      - SA_PASSWORD=${SQL_PASSWORD}
+      - ACCEPT_EULA="Y"
+    ports:
+      - "1533:1433"
+
+  api-service:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__GStoreConnection=Server=sqldata;Database=GStore;User Id=sa;Password=${SQL_PASSWORD};Encrypt=False;TrustServerCertificate=true
+    ports:
+      - "8002:8080"
+
+  fe-service:
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8085/api
+    ports:
+      - "8003:3000"
+      
+  proxy:
+    ports:
+      - "8085:8085"
+    volumes:
+      - ./nginx:/etc/nginx/templates
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=8085
