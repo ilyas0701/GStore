@@ -5,6 +5,6 @@ namespace GameStore.BLL.Abstract
 {
     public interface IGameService
     {
-        IEnumerable<GameDto> GetAllGames();
+        Task<IEnumerable<GameDto>> GetAllGamesAsync();
     }
 }

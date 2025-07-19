@@ -12,9 +12,11 @@ namespace GameStore.BLL
         {
             _unitOfWork = unitOfWork;
         }
-        public IEnumerable<GameDto> GetAllGames()
+        public async Task<IEnumerable<GameDto>> GetAllGamesAsync()
         {
-            return _unitOfWork.GameRepository.Get().Select(g => new GameDto
+            var game = await _unitOfWork.GameRepository.GetAsync();
+
+            return game.Select(g => new GameDto
             {
                 Id = g.Id,
                 Title = g.Title,

@@ -14,31 +14,36 @@ namespace GameStore.DAL.Repositories
             _dbSet = context.Set<TEntity>();
         }
 
-        public IEnumerable<TEntity> Get()
+        public async Task<IEnumerable<TEntity>> GetAsync()
         {
-            return _dbSet.AsNoTracking().ToList();
+            return await _dbSet.AsNoTracking().ToListAsync();
         }
 
-        public IEnumerable<TEntity> Get(Func<TEntity, bool> predicate)
+        public async Task<IEnumerable<TEntity>> GetAsync(Func<TEntity, bool> predicate)
         {
-            return _dbSet.AsNoTracking().Where(predicate).ToList();
-        }
-        public TEntity FindById(int id)
-        {
-            return _dbSet.Find(id);
+            return await Task.Run(() => _dbSet.AsNoTracking().Where(predicate).ToList());
         }
 
-        public void Create(TEntity item)
+        public async Task<TEntity> FindById(int id)
         {
-            _dbSet.Add(item);
+            return await _dbSet.FindAsync(id);
         }
-        public void Update(TEntity item)
+
+        public async Task Create(TEntity item)
+        {
+            await _dbSet.AddAsync(item);
+        }
+
+        public Task Update(TEntity item)
         {
             _context.Entry(item).State = EntityState.Modified;
+            return Task.CompletedTask;
         }
-        public void Remove(TEntity item)
+
+        public Task Remove(TEntity item)
         {
             _dbSet.Remove(item);
+            return Task.CompletedTask;
         }
     }
 }

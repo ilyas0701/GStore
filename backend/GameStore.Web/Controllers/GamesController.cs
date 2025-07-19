@@ -17,11 +17,11 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<GameResponse>> GetGames()
+        public async Task<IActionResult> GetGames()
         {
-            var games = _gameService.GetAllGames();
+            var games = await _gameService.GetAllGamesAsync();
 
-            return Ok(games.Select(g => new GameResponse
+            var response = games.Select(g => new GameResponse
             {
                 Id = g.Id,
                 Title = g.Title,
@@ -30,7 +30,9 @@ namespace GameStore.Web.Controllers
                 Price = g.Price,
                 ImgUrl = g.ImgUrl,
                 ReleaseAtDate = g.ReleaseAtDate
-            }));
+            });
+
+            return Ok(response);
         }
     }
 }
