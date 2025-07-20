@@ -2,6 +2,7 @@
 using GameStore.Models.DTO;
 using GameStore.Web.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace GameStore.Web.Controllers
 {
@@ -16,7 +17,7 @@ namespace GameStore.Web.Controllers
             _gameService = gameService;
         }
 
-        [HttpGet("api/v1/game/all")]
+        [HttpGet("all")]
         public async Task<IActionResult> GetGames()
         {
             var games = await _gameService.GetAllGamesAsync();
@@ -56,7 +57,7 @@ namespace GameStore.Web.Controllers
             return CreatedAtAction(nameof(GetGames), new { id = gameResponse.Id }, gameResponse);
         }
 
-        [HttpGet("api/v1/game/{id:int}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetGameById(int id)
         {
             try
@@ -108,7 +109,7 @@ namespace GameStore.Web.Controllers
                 return NotFound(ex.Message);
             }
         }
-        
+
         [HttpDelete("remove")]
         public async Task<IActionResult> RemoveGameInfo([FromBody] int id, CancellationToken cancellationToken)
         {
@@ -117,10 +118,64 @@ namespace GameStore.Web.Controllers
                 await _gameService.RemoveGame(id, cancellationToken);
 
                 return Accepted();
-            } catch(KeyNotFoundException ex)
+            }
+            catch (KeyNotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
+        }
+
+        [HttpGet("{id:int}/comments")]
+        public async Task<IActionResult> GetGameComments(int id)
+        {
+            try
+            {
+                var comments = await _gameService.GetCommentAsync(id);
+
+                return Ok(comments.Select(r => new CommentResponse
+                {
+                    Id = r.Id,
+                    Name = r.Name,
+                    Content = r.Body
+                }));
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpPost("{gameId:int}/newcomment")]
+        public async Task<IActionResult> CreateGameComment(int gameId, [FromBody] CommentResponse commentResponse, CancellationToken cancellationToken)
+        {
+            try
+            {
+                await _gameService.CreateCommentAsync(new CommentDto
+                {
+                    Id = commentResponse.Id,
+                    Name = commentResponse.Name,
+                    Body = commentResponse.Content,
+                    GameId = gameId
+                }, cancellationToken);
+
+                return CreatedAtAction(nameof(GetGames), commentResponse);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"An error occurred while creating the comment: {ex.Message}");
+            }
+        }
+
+        [HttpGet("{gameId:int}/download")]
+        public IActionResult DownloadGame(int gameId)
+        {
+            var content = $"Game ID: {gameId}\nDownloaded at: {DateTime.UtcNow}";
+
+            var bytes = System.Text.Encoding.UTF8.GetBytes(content);
+
+            var fileName = $"game_{gameId}.txt";
+
+            return File(bytes, "text/plain", fileName);
         }
     }
 }
