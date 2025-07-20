@@ -84,13 +84,13 @@ namespace GameStore.BLL
             await _unitOfWork.CommitAsync(cancellationToken);
         }
 
-        public async Task RemoveGame(GameDto gameDto, CancellationToken cancellationToken)
+        public async Task RemoveGame(int id, CancellationToken cancellationToken)
         {
-            var game = await _unitOfWork.GameRepository.FindById(gameDto.Id);
-            
-            if (game == null)
+            var game = await _unitOfWork.GameRepository.FindById(id);
+
+            if(game == null)
             {
-                throw new KeyNotFoundException($"Game with id {gameDto.Id} not found.");
+                throw new KeyNotFoundException($"Game with id {id} not found.");
             }
 
             _unitOfWork.GameRepository.Remove(game);

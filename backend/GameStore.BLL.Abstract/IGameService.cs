@@ -13,6 +13,6 @@ namespace GameStore.BLL.Abstract
 
         Task UpdateGameInfo(GameDto gameDto, CancellationToken cancellationToken);
 
-        Task RemoveGame(GameDto gameDto, CancellationToken cancellationToken);
+        Task RemoveGame(int id, CancellationToken cancellationToken);
     }
 }

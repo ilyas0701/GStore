@@ -16,7 +16,7 @@ namespace GameStore.Web.Controllers
             _gameService = gameService;
         }
 
-        [HttpGet]
+        [HttpGet("api/v1/game/all")]
         public async Task<IActionResult> GetGames()
         {
             var games = await _gameService.GetAllGamesAsync();
@@ -56,7 +56,7 @@ namespace GameStore.Web.Controllers
             return CreatedAtAction(nameof(GetGames), new { id = gameResponse.Id }, gameResponse);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("api/v1/game/{id:int}")]
         public async Task<IActionResult> GetGameById(int id)
         {
             try
@@ -74,46 +74,53 @@ namespace GameStore.Web.Controllers
                 };
                 return Ok(response);
             }
-            catch (KeyNotFoundException)
+            catch (KeyNotFoundException ex)
             {
-                return NotFound($"Game with id {id} not found.");
+                return NotFound(ex.Message);
             }
         }
 
-        [HttpPost("update")]
+        [HttpPut("update")]
         public async Task<IActionResult> UpdateGameInfo([FromBody] GameResponse gameResponse, CancellationToken cancellationToken)
         {
-
-            await _gameService.UpdateGameInfo(new GameDto
+            if (gameResponse == null)
             {
-                Id = gameResponse.Id,
-                Title = gameResponse.Title,
-                Description = gameResponse.Description,
-                Developer = gameResponse.Developer,
-                Price = gameResponse.Price,
-                ImgUrl = gameResponse.ImgUrl,
-                ReleaseAtDate = gameResponse.ReleaseAtDate
-            }, cancellationToken);
+                return BadRequest("Game data is null");
+            }
 
-            return Accepted();
+            try
+            {
+                await _gameService.UpdateGameInfo(new GameDto
+                {
+                    Id = gameResponse.Id,
+                    Title = gameResponse.Title,
+                    Description = gameResponse.Description,
+                    Developer = gameResponse.Developer,
+                    Price = gameResponse.Price,
+                    ImgUrl = gameResponse.ImgUrl,
+                    ReleaseAtDate = gameResponse.ReleaseAtDate
+                }, cancellationToken);
+
+                return Accepted();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
-
-        [HttpPost("remove")]
-        public async Task<IActionResult> RemoveGameInfo([FromBody] GameResponse gameResponse, CancellationToken cancellationToken)
+        
+        [HttpDelete("remove")]
+        public async Task<IActionResult> RemoveGameInfo([FromBody] int id, CancellationToken cancellationToken)
         {
-
-            await _gameService.RemoveGame(new GameDto
+            try
             {
-                Id = gameResponse.Id,
-                Title = gameResponse.Title,
-                Description = gameResponse.Description,
-                Developer = gameResponse.Developer,
-                Price = gameResponse.Price,
-                ImgUrl = gameResponse.ImgUrl,
-                ReleaseAtDate = gameResponse.ReleaseAtDate
-            }, cancellationToken);
+                await _gameService.RemoveGame(id, cancellationToken);
 
-            return Accepted();
+                return Accepted();
+            } catch(KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }
