@@ -1,4 +1,5 @@
 "use client"
+import { usePurchaseGame } from "@/features/games/hooks/useGames"
 import "./styles.scss"
 
 interface GamePurchaseProps {
@@ -14,12 +15,10 @@ export const GamePurchase = ({ id, price }: GamePurchaseProps) => {
     }).format(value)
   }
 
-  const handlePurchase = async () => {
-    await fetch("/api/purchase-game", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id, price }),
-    })
+  const { mutate: purchaseGame, isPending } = usePurchaseGame()
+
+  const handlePurchase = () => {
+    purchaseGame({ gameId: id })
   }
 
   return (
@@ -29,6 +28,7 @@ export const GamePurchase = ({ id, price }: GamePurchaseProps) => {
         type="button"
         onClick={handlePurchase}
         className="purchase-button"
+        disabled={isPending}
       >
         Buy Now
       </button>

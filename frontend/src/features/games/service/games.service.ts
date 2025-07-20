@@ -60,3 +60,20 @@ export const fetchGameMediaById = async (
     return response.json()
   }
 }
+
+export const purchaseGame = async (
+  gameId: string
+): Promise<{ success: boolean }> => {
+  const response = await fetch(`/api/purchase-game/${gameId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error("Failed to purchase game")
+  }
+
+  return response.json()
+}
