@@ -1,5 +1,8 @@
 import type { Metadata } from "next"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { Geist, Geist_Mono } from "next/font/google"
+import { useState } from "react"
 import { Header } from "@/features/shared/components/Header"
 import "./globals.scss"
 
@@ -23,11 +26,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const [queryClient] = useState(() => new QueryClient())
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Header />
-        <main className="main-content">{children}</main>
+        <QueryClientProvider client={queryClient}>
+          <Header />
+          <main className="main-content">{children}</main>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
       </body>
     </html>
   )
