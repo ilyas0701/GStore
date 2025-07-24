@@ -9,7 +9,8 @@ export async function POST(
   request: Request,
   { params }: { params: { gameId: string } }
 ) {
-  const game = await fetchGameById(params.gameId)
+  const { gameId } = await params
+  const game = await fetchGameById(gameId)
 
   if (!game) {
     logger.fatal(`Game with id: ${params.gameId} not found`)
