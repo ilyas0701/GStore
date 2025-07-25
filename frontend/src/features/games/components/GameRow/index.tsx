@@ -24,7 +24,6 @@ export const GameRow = async ({ id, size = 1 }: GameRowProps) => {
           alt={game.title}
           width={150}
           height={100}
-          style={{ width: "100%", height: "auto", objectFit: "cover" }}
           priority
         />
       ))}

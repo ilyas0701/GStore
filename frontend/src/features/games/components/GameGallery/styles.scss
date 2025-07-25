@@ -6,11 +6,12 @@
   max-width: 600px;
 
   .game-gallery-image {
-    width: 100%;
     max-width: 600px;
     max-height: 300px;
   }
   img {
     border-radius: 0.5rem;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
   }
 }
