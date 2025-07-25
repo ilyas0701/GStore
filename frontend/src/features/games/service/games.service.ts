@@ -1,7 +1,6 @@
 import type { GameCompact } from "@/features/shared/types/game"
 import { games } from "@/data/games.json"
 import { adaptGenres } from "@/features/games/service/adapters/mock"
-import { logger } from "@/features/shared/logger"
 
 // TODO: replace with env
 const API_URL = null
@@ -9,8 +8,6 @@ const API_URL = null
 const adaptGame = (
   game: Omit<GameCompact, "genre"> & { genre: string }
 ): GameCompact => {
-  logger.debug("Adapting game:", game)
-
   return {
     ...game,
     genre: adaptGenres(game.genre as string),
@@ -21,8 +18,6 @@ export const fetchGames = async (): Promise<GameCompact[]> => {
   if (!API_URL) {
     await new Promise((resolve) => setTimeout(resolve, 100))
     const response = games.map(adaptGame)
-
-    logger.debug("Fetched games from mock data:", response)
 
     return response
   } else {
