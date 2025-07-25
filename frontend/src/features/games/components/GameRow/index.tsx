@@ -16,14 +16,15 @@ export const GameRow = async ({ id, size = 1 }: GameRowProps) => {
 
   return (
     <div className="game-row">
-      {Array.from({ length: size }).map((_, index) => (
+      {Array.from({ length: size }).map((_) => (
         <Image
-          key={`${game.id}-${index}`}
+          key={`${game.id}_${Math.random()}`}
           className="game-row-image"
           src={game.image_url || "/placeholder.png"}
           alt={game.title}
           width={150}
           height={100}
+          style={{ width: "100%", height: "auto", objectFit: "cover" }}
           priority
         />
       ))}

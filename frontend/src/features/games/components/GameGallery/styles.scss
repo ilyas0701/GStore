@@ -1,11 +1,16 @@
 .game-gallery {
-    max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  max-width: 600px;
 
-    img {
-        border-radius: 0.5rem;
-    }
+  .game-gallery-image {
+    width: 100%;
+    max-width: 600px;
+    max-height: 300px;
+  }
+  img {
+    border-radius: 0.5rem;
+  }
 }

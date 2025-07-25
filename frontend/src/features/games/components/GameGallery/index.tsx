@@ -26,6 +26,7 @@ export const GameGallery = async ({ id }: GameGalleryProps) => {
         height={300}
         priority
         draggable={false}
+        style={{ width: "100%", height: "auto", objectFit: "cover" }}
         className="game-gallery-image"
       />
       <GameRow id={id} size={5} />

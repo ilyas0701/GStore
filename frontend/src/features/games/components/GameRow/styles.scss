@@ -1,10 +1,15 @@
 .game-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  width: 100%;
+  overflow-x: scroll;
+  .game-row-image {
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: nowrap;
-    overflow-x: scroll;
-    align-items: flex-start;
-    gap: 0.75rem;
+    max-width: 150px;
+    max-height: 100px;
+  }
 }
