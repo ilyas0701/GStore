@@ -77,7 +77,7 @@ export const fetchGameMediaById = async (id: string): Promise<string> => {
 }
 
 export const purchaseGame = async (
-  gameId: string | number | null
+  gameId: string
 ): Promise<{ success: boolean }> => {
   const response = await fetch(`/api/purchase-game/${gameId}`, {
     method: "POST",

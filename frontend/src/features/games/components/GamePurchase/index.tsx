@@ -1,5 +1,6 @@
 "use client"
 import { usePurchaseGame } from "@/features/games/hooks/useGames"
+import { formatPrice } from "@/features/games/utils/price"
 import "./styles.scss"
 
 interface GamePurchaseProps {
@@ -8,13 +9,6 @@ interface GamePurchaseProps {
 }
 
 export const GamePurchase = ({ id, price }: GamePurchaseProps) => {
-  const formatPrice = (value: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(value)
-  }
-
   const { mutate: purchaseGame, isPending } = usePurchaseGame()
 
   const handlePurchase = () => {
