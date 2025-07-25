@@ -7,13 +7,13 @@ const API_URL = process.env.API_URL ?? null
 
 export async function POST(
   request: Request,
-  { params }: { params: { gameId: string } }
+  { params }: { params: Promise<{ gameId: string }> }
 ) {
   const { gameId } = await params
   const game = await fetchGameById(gameId)
 
   if (!game) {
-    logger.fatal(`Game with id: ${params.gameId} not found`)
+    logger.warn(`Game with id: ${gameId} not found`)
     return NextResponse.json(
       {
         success: false,
@@ -24,13 +24,13 @@ export async function POST(
   }
 
   if (API_URL) {
-    const response = await fetch(`${API_URL}/purchase-game/${params.gameId}`, {
+    const response = await fetch(`${API_URL}/purchase-game/${gameId}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
     })
 
     if (!response.ok) {
-      logger.fatal(`Server purchase failed for game ${params.gameId}`)
+      logger.warn(`Server purchase failed for game ${gameId}`)
 
       return NextResponse.json(
         {
