@@ -11,7 +11,7 @@
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "lint:next": "next lint",
-    "test": "vitest",
+    "test": "jest",
     "start": "next start"
   },
   "dependencies": {
@@ -29,7 +29,9 @@
     "@next/eslint-plugin-next": "^15.3.5",
     "@tanstack/react-query-devtools": "^5.83.0",
     "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
+    "@types/jest": "^30.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -43,11 +45,14 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "jsdom": "^26.1.0",
     "prettier": "^3.6.2",
     "prettier-plugin-css-order": "^2.1.2",
     "prettier-plugin-pkg": "^0.21.1",
     "sass": "^1.89.2",
+    "ts-node": "^10.9.2",
     "typescript": "^5",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.4"

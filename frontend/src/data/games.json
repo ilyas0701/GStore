@@ -1,32 +1,804 @@
 {
   "games": [
     {
-      "id": "1",
-      "title": "Skyward Adventure",
-      "description": "Explore floating islands and uncover ancient secrets.",
-      "price": 29.99,
-      "image_url": "http://dummyimage.com/224x100.png/cc0000/ffffff"
+      "id": 1,
+      "title": "Mothman Prophecies, The",
+      "description": "Borosilicate glass water bottle with silicone sleeve.",
+      "genre": "Drama|Fantasy|Horror|Mystery|Thriller",
+      "price": 45.95,
+      "image_url": "http://dummyimage.com/451x239.png/5fa2dd/ffffff"
     },
     {
-      "id": "2",
-      "title": "Pixel Racer",
-      "description": "Retro racing action with customizable cars.",
-      "price": 19.99,
-      "image_url": "http://dummyimage.com/224x100.png/cc0000/ffffff"
+      "id": 2,
+      "title": "Dead Man",
+      "description": "High-quality olive oil infused with fresh lemon zest.",
+      "genre": "Drama|Mystery|Western",
+      "price": null,
+      "image_url": "http://dummyimage.com/396x234.png/ff4444/ffffff"
     },
     {
-      "id": "3",
-      "title": "Mystic Quest",
-      "description": "Embark on a magical journey through enchanted lands.",
-      "price": 39.99,
-      "image_url": "http://dummyimage.com/224x100.png/cc0000/ffffff"
+      "id": 3,
+      "title": "Beethoven's 5th",
+      "description": "Single-serve coffee maker with a built-in grinder.",
+      "genre": "Adventure|Children|Comedy",
+      "price": null,
+      "image_url": "http://dummyimage.com/371x299.png/5fa2dd/ffffff"
     },
     {
-      "id": "4",
-      "title": "Dungeon Crawler",
-      "description": "Battle monsters and collect treasures in endless dungeons.",
-      "price": 24.99,
-      "image_url": "http://dummyimage.com/224x100.png/cc0000/ffffff"
+      "id": 4,
+      "title": "Cure, The",
+      "description": "Versatile canned black beans, ready to add to any dish.",
+      "genre": "Comedy",
+      "price": null,
+      "image_url": "http://dummyimage.com/386x264.png/ff4444/ffffff"
+    },
+    {
+      "id": 5,
+      "title": "Once Were Warriors",
+      "description": "Quick-cooking couscous, great as a side or base.",
+      "genre": "Crime|Drama",
+      "price": null,
+      "image_url": "http://dummyimage.com/565x217.png/5fa2dd/ffffff"
+    },
+    {
+      "id": 6,
+      "title": "Mayday at 40,000 Feet!",
+      "description": "Add a pop of color with this stylish patterned knit scarf.",
+      "genre": "Adventure",
+      "price": 37.23,
+      "image_url": "http://dummyimage.com/583x241.png/5fa2dd/ffffff"
+    },
+    {
+      "id": 7,
+      "title": "Dead End Drive-In",
+      "description": "Hearty chili made with premium ground beef and kidney beans.",
+      "genre": "Action|Drama|Horror|Sci-Fi|Thriller",
+      "price": 1.56,
+      "image_url": "http://dummyimage.com/504x223.png/cc0000/ffffff"
+    },
+    {
+      "id": 8,
+      "title": "Kiss Me Goodbye",
+      "description": "A seasoning blend of garlic and herbs to enhance any dish.",
+      "genre": "Comedy",
+      "price": 50.29,
+      "image_url": null
+    },
+    {
+      "id": 9,
+      "title": "Venus Wars (Venus Senki)",
+      "description": "Space-saving bike for indoor workouts.",
+      "genre": "Action|Animation|Sci-Fi|War",
+      "price": 37.18,
+      "image_url": "http://dummyimage.com/423x246.png/dddddd/000000"
+    },
+    {
+      "id": 10,
+      "title": "Rapture (Arrebato)",
+      "description": "Quick-cooking couscous, great as a side or base.",
+      "genre": "Drama|Horror",
+      "price": 11.1,
+      "image_url": "http://dummyimage.com/545x289.png/dddddd/000000"
+    },
+    {
+      "id": 11,
+      "title": "Pudana Last of the Line (Sukunsa viimeinen)",
+      "description": "Low-carb zucchini noodles, perfect for a healthy alternative to pasta.",
+      "genre": "Drama",
+      "price": 13.25,
+      "image_url": "http://dummyimage.com/475x249.png/ff4444/ffffff"
+    },
+    {
+      "id": 12,
+      "title": "Jackass 3D",
+      "description": "Automated stirring for your drinks with just a press of a button.",
+      "genre": "Action|Comedy|Documentary",
+      "price": null,
+      "image_url": "http://dummyimage.com/516x300.png/ff4444/ffffff"
+    },
+    {
+      "id": 13,
+      "title": "Dead & Breakfast",
+      "description": "Extra soft electric blanket with adjustable heat settings.",
+      "genre": "Comedy|Horror|Musical",
+      "price": 9.02,
+      "image_url": "http://dummyimage.com/231x274.png/5fa2dd/ffffff"
+    },
+    {
+      "id": 14,
+      "title": "Music Room, The (Jalsaghar)",
+      "description": "Color-changing smart LED bulbs compatible with Alexa.",
+      "genre": "Drama",
+      "price": 7.35,
+      "image_url": "http://dummyimage.com/506x234.png/dddddd/000000"
+    },
+    {
+      "id": 15,
+      "title": "Silencers, The",
+      "description": "Non-stick and heat-resistant utensils for cooking.",
+      "genre": "Action|Comedy",
+      "price": 48.81,
+      "image_url": "http://dummyimage.com/320x214.png/5fa2dd/ffffff"
+    },
+    {
+      "id": 16,
+      "title": "Murder in Coweta County",
+      "description": "Qi-certified charger for fast wireless charging of smartphones.",
+      "genre": "Crime|Drama",
+      "price": null,
+      "image_url": "http://dummyimage.com/266x274.png/ff4444/ffffff"
+    },
+    {
+      "id": 17,
+      "title": "Brightness (Yeelen)",
+      "description": "Soft and warm corn tortillas, perfect for tacos and burritos.",
+      "genre": "Fantasy",
+      "price": 0.35,
+      "image_url": "http://dummyimage.com/574x206.png/5fa2dd/ffffff"
+    },
+    {
+      "id": 18,
+      "title": "Hard to Be a God",
+      "description": "Supportive sports bra designed for high-impact workouts, made with moisture-wicking fabric.",
+      "genre": "Sci-Fi",
+      "price": 26.6,
+      "image_url": "http://dummyimage.com/330x280.png/ff4444/ffffff"
+    },
+    {
+      "id": 19,
+      "title": "Making Mr. Right",
+      "description": "Eco-friendly bamboo cutting board for food prep.",
+      "genre": "Comedy|Romance|Sci-Fi",
+      "price": 19.97,
+      "image_url": "http://dummyimage.com/346x216.png/dddddd/000000"
+    },
+    {
+      "id": 20,
+      "title": "Lan Yu",
+      "description": "Fresh salad with pears, gorgonzola cheese, and nuts, perfect for lunch.",
+      "genre": "Drama|Romance",
+      "price": 44.26,
+      "image_url": "http://dummyimage.com/540x206.png/dddddd/000000"
+    },
+    {
+      "id": 21,
+      "title": "Scanners",
+      "description": "Durable toy designed for heavy chewers.",
+      "genre": "Horror|Sci-Fi|Thriller",
+      "price": 38.27,
+      "image_url": "http://dummyimage.com/498x271.png/ff4444/ffffff"
+    },
+    {
+      "id": 22,
+      "title": "Flock of Dodos: The Evolution-Intelligent Design Circus",
+      "description": "Complete kit for starting your own organic garden.",
+      "genre": "Documentary",
+      "price": 9.13,
+      "image_url": "http://dummyimage.com/410x216.png/cc0000/ffffff"
+    },
+    {
+      "id": 23,
+      "title": "Skeletons",
+      "description": "Crunchy granola made with oats, almonds, and coconut flakes.",
+      "genre": "Comedy|Fantasy",
+      "price": 35.0,
+      "image_url": "http://dummyimage.com/494x225.png/cc0000/ffffff"
+    },
+    {
+      "id": 24,
+      "title": "Sincerely Yours",
+      "description": "Durable canvas tote bag, perfect for everyday use.",
+      "genre": "Drama|Musical",
+      "price": 9.65,
+      "image_url": "http://dummyimage.com/314x258.png/dddddd/000000"
+    },
+    {
+      "id": 25,
+      "title": "Trancers",
+      "description": "Soft and plush robe for comfort after the shower.",
+      "genre": "Action|Sci-Fi",
+      "price": 21.46,
+      "image_url": "http://dummyimage.com/455x228.png/dddddd/000000"
+    },
+    {
+      "id": 26,
+      "title": "Trailer Park Boys: The Movie",
+      "description": "Roasted almonds coated in a sweet maple and cinnamon mixture.",
+      "genre": "Comedy|Crime",
+      "price": 15.51,
+      "image_url": "http://dummyimage.com/365x289.png/ff4444/ffffff"
+    },
+    {
+      "id": 27,
+      "title": "5 Fingers",
+      "description": "Eco-friendly bags for storing food without plastic waste.",
+      "genre": "Drama|Thriller",
+      "price": 32.6,
+      "image_url": "http://dummyimage.com/368x243.png/dddddd/000000"
+    },
+    {
+      "id": 28,
+      "title": "How to Train Your Dragon 2",
+      "description": "Crunchy and flavorful mix of oats and honey.",
+      "genre": "Action|Adventure|Animation",
+      "price": 22.18,
+      "image_url": "http://dummyimage.com/506x268.png/ff4444/ffffff"
+    },
+    {
+      "id": 29,
+      "title": "Psycho Beach Party",
+      "description": "Plant-based mix for a rich chocolate cake.",
+      "genre": "Comedy|Horror|Thriller",
+      "price": 54.91,
+      "image_url": "http://dummyimage.com/585x255.png/dddddd/000000"
+    },
+    {
+      "id": 30,
+      "title": "Eye of the Needle",
+      "description": "Classic wooden puzzle game for kids and adults.",
+      "genre": "Thriller",
+      "price": null,
+      "image_url": "http://dummyimage.com/598x283.png/5fa2dd/ffffff"
+    },
+    {
+      "id": 31,
+      "title": "Bad Ass",
+      "description": "Marinated chicken breast seasoned with herbs, ready for grilling.",
+      "genre": "Action|Crime|Drama",
+      "price": 9.95,
+      "image_url": "http://dummyimage.com/337x285.png/ff4444/ffffff"
+    },
+    {
+      "id": 32,
+      "title": "Almighty Thor",
+      "description": "Water-resistant Bluetooth speaker for showers.",
+      "genre": "Adventure|Fantasy",
+      "price": 29.03,
+      "image_url": "http://dummyimage.com/581x268.png/dddddd/000000"
+    },
+    {
+      "id": 33,
+      "title": "After Sex",
+      "description": "Ear protection for shooting and industrial use.",
+      "genre": "Drama|Romance",
+      "price": 5.98,
+      "image_url": "http://dummyimage.com/331x281.png/ff4444/ffffff"
+    },
+    {
+      "id": 34,
+      "title": "Mickey's Twice Upon a Christmas",
+      "description": "Foldable table for working with laptops anywhere.",
+      "genre": "Animation|Children|Comedy",
+      "price": 12.34,
+      "image_url": "http://dummyimage.com/424x246.png/5fa2dd/ffffff"
+    },
+    {
+      "id": 35,
+      "title": "Twentynine Palms",
+      "description": "Couscous salad with cucumbers, tomatoes, feta, and olives, ready to eat.",
+      "genre": "Drama|Horror",
+      "price": 27.99,
+      "image_url": "http://dummyimage.com/494x224.png/5fa2dd/ffffff"
+    },
+    {
+      "id": 36,
+      "title": "Whale Rider",
+      "description": "Nutritious protein bars for on-the-go snacking.",
+      "genre": "Drama",
+      "price": 33.94,
+      "image_url": "http://dummyimage.com/238x215.png/dddddd/000000"
+    },
+    {
+      "id": 37,
+      "title": "Dark Crystal, The",
+      "description": "Spicy chili sauce with garlic and sugar for a flavor kick.",
+      "genre": "Adventure|Fantasy",
+      "price": null,
+      "image_url": "http://dummyimage.com/289x218.png/ff4444/ffffff"
+    },
+    {
+      "id": 38,
+      "title": "The Fox and the Hound 2",
+      "description": "Sweet dried raisins, perfect for snacks or baking.",
+      "genre": "Adventure|Animation|Children|Comedy",
+      "price": 14.6,
+      "image_url": "http://dummyimage.com/304x233.png/ff4444/ffffff"
+    },
+    {
+      "id": 39,
+      "title": "Mondo",
+      "description": "Silicone oven mitts for safe handling of hot cookware.",
+      "genre": "Drama",
+      "price": 5.77,
+      "image_url": "http://dummyimage.com/490x269.png/ff4444/ffffff"
+    },
+    {
+      "id": 40,
+      "title": "Sky High",
+      "description": "Eco-friendly meal prep containers for healthy eating.",
+      "genre": "Action|Adventure|Children|Comedy",
+      "price": 7.86,
+      "image_url": "http://dummyimage.com/414x231.png/ff4444/ffffff"
+    },
+    {
+      "id": 41,
+      "title": "Landscape Suicide",
+      "description": "Versatile electric skillet for stir-frying and searing.",
+      "genre": "Crime|Drama",
+      "price": 49.98,
+      "image_url": "http://dummyimage.com/453x230.png/ff4444/ffffff"
+    },
+    {
+      "id": 42,
+      "title": "Kings of the Road (Im Lauf der Zeit)",
+      "description": "Portable projector with 1080p resolution for movies.",
+      "genre": "Drama",
+      "price": 31.82,
+      "image_url": "http://dummyimage.com/507x233.png/ff4444/ffffff"
+    },
+    {
+      "id": 43,
+      "title": "Rage, The",
+      "description": "Colorful building blocks for creative play.",
+      "genre": "Horror|Sci-Fi",
+      "price": 6.02,
+      "image_url": "http://dummyimage.com/360x242.png/dddddd/000000"
+    },
+    {
+      "id": 44,
+      "title": "Dream Team 1935",
+      "description": "Device that tracks soil moisture and provides care tips.",
+      "genre": "Comedy|Drama",
+      "price": 2.0,
+      "image_url": "http://dummyimage.com/506x214.png/dddddd/000000"
+    },
+    {
+      "id": 45,
+      "title": "Baby Take a Bow",
+      "description": "Tangy vinaigrette with orange and ginger flavors.",
+      "genre": "Children|Comedy|Drama",
+      "price": 10.65,
+      "image_url": "http://dummyimage.com/584x205.png/cc0000/ffffff"
+    },
+    {
+      "id": 46,
+      "title": "Flock of Dodos: The Evolution-Intelligent Design Circus",
+      "description": "Smart tailored dress pants, perfect for work or formal events.",
+      "genre": "Documentary",
+      "price": 46.2,
+      "image_url": "http://dummyimage.com/580x240.png/cc0000/ffffff"
+    },
+    {
+      "id": 47,
+      "title": "Lost Honor of Katharina Blum, The (Verlorene Ehre der Katharina Blum oder: Wie Gewalt entstehen und wohin sie führen kann, Die)",
+      "description": "Healthy frozen acai bowl with toppings.",
+      "genre": "Drama",
+      "price": 54.68,
+      "image_url": "http://dummyimage.com/266x242.png/5fa2dd/ffffff"
+    },
+    {
+      "id": 48,
+      "title": "Legend of Suram Fortress, The (Ambavi Suramis tsikhitsa) ",
+      "description": "Green salsa with a spicy kick, great for dipping.",
+      "genre": "Drama",
+      "price": 44.36,
+      "image_url": "http://dummyimage.com/415x255.png/ff4444/ffffff"
+    },
+    {
+      "id": 49,
+      "title": "Aragami",
+      "description": "All ingredients included for delicious chicken fajitas.",
+      "genre": "Action|Fantasy|Horror",
+      "price": 58.23,
+      "image_url": "http://dummyimage.com/290x300.png/dddddd/000000"
+    },
+    {
+      "id": 50,
+      "title": "Guinea Pig: Flowers of Flesh and Blood (Za ginipiggu 2: Chiniku no hana)",
+      "description": "Rechargeable electric toothbrush with smart timer.",
+      "genre": "Horror",
+      "price": 20.7,
+      "image_url": "http://dummyimage.com/550x208.png/5fa2dd/ffffff"
+    },
+    {
+      "id": 51,
+      "title": "Strange Invaders",
+      "description": "A colorful variety of crunchy veggie chips for snacking.",
+      "genre": "Animation|Comedy",
+      "price": 42.99,
+      "image_url": "http://dummyimage.com/324x203.png/dddddd/000000"
+    },
+    {
+      "id": 52,
+      "title": "Resolution",
+      "description": "Personalized wooden puzzles for children that encourage learning.",
+      "genre": "Horror|Thriller",
+      "price": 33.7,
+      "image_url": "http://dummyimage.com/578x300.png/dddddd/000000"
+    },
+    {
+      "id": 53,
+      "title": "City Limits",
+      "description": "Compact blender for quick smoothies and shakes.",
+      "genre": "Action|Sci-Fi",
+      "price": 44.77,
+      "image_url": "http://dummyimage.com/470x255.png/cc0000/ffffff"
+    },
+    {
+      "id": 54,
+      "title": "Hellion",
+      "description": "Moist, fluffy muffins packed with bananas and walnuts for a delightful breakfast or snack.",
+      "genre": "Drama|Thriller",
+      "price": 43.92,
+      "image_url": "http://dummyimage.com/363x273.png/dddddd/000000"
+    },
+    {
+      "id": 55,
+      "title": "Promises",
+      "description": "Stylish leather ankle boots with a block heel, perfect for fall styling.",
+      "genre": "Documentary",
+      "price": 50.36,
+      "image_url": "http://dummyimage.com/513x291.png/cc0000/ffffff"
+    },
+    {
+      "id": 56,
+      "title": "Pledge This!",
+      "description": "Durable backpack with ample storage for outdoor adventures.",
+      "genre": "Comedy",
+      "price": null,
+      "image_url": "http://dummyimage.com/278x233.png/5fa2dd/ffffff"
+    },
+    {
+      "id": 57,
+      "title": "Teen Spirit",
+      "description": "Brews coffee with a smooth flavor without bitterness.",
+      "genre": "Comedy|Drama|Fantasy",
+      "price": 25.75,
+      "image_url": "http://dummyimage.com/556x283.png/cc0000/ffffff"
+    },
+    {
+      "id": 58,
+      "title": "Ruby & Quentin (Tais-toi!)",
+      "description": "Fresh eggs from free-range chickens.",
+      "genre": "Comedy|Crime",
+      "price": 41.51,
+      "image_url": "http://dummyimage.com/354x274.png/ff4444/ffffff"
+    },
+    {
+      "id": 59,
+      "title": "Catch and Release",
+      "description": "A tangy and spicy BBQ sauce that's perfect for grilling.",
+      "genre": "Comedy|Drama|Romance",
+      "price": 43.89,
+      "image_url": "http://dummyimage.com/375x283.png/ff4444/ffffff"
+    },
+    {
+      "id": 60,
+      "title": "Rory O'Shea Was Here (Inside I'm Dancing)",
+      "description": "Frozen vegan tacos filled with plant-based protein and spices.",
+      "genre": "Drama",
+      "price": 24.28,
+      "image_url": "http://dummyimage.com/470x295.png/dddddd/000000"
+    },
+    {
+      "id": 61,
+      "title": "Illusionist, The (L'illusionniste)",
+      "description": "Rotating spice rack with 20 spice jars.",
+      "genre": "Animation",
+      "price": 38.13,
+      "image_url": "http://dummyimage.com/533x292.png/dddddd/000000"
+    },
+    {
+      "id": 62,
+      "title": "War Witch (Rebelle)",
+      "description": "Device that tracks soil moisture and provides care tips.",
+      "genre": "Drama|War",
+      "price": 11.98,
+      "image_url": "http://dummyimage.com/361x214.png/cc0000/ffffff"
+    },
+    {
+      "id": 63,
+      "title": "Gilded Lily, The",
+      "description": "Bottle with infuser for brewing loose-leaf tea on the go.",
+      "genre": "Comedy|Romance",
+      "price": 10.16,
+      "image_url": "http://dummyimage.com/382x205.png/dddddd/000000"
+    },
+    {
+      "id": 64,
+      "title": "Porn Theater (Chatte à deux têtes, La)",
+      "description": "Lightweight hair dryer with multiple speed settings.",
+      "genre": "Drama",
+      "price": 17.9,
+      "image_url": "http://dummyimage.com/216x231.png/ff4444/ffffff"
+    },
+    {
+      "id": 65,
+      "title": "Count Dracula (Nachts, wenn Dracula erwacht)",
+      "description": "Ready-to-eat beet salad with dressing, great side dish.",
+      "genre": "Horror|Mystery",
+      "price": 14.12,
+      "image_url": "http://dummyimage.com/447x244.png/ff4444/ffffff"
+    },
+    {
+      "id": 66,
+      "title": "Westbound",
+      "description": "1080p HD video camera with night vision.",
+      "genre": "Western",
+      "price": 51.2,
+      "image_url": "http://dummyimage.com/209x217.png/dddddd/000000"
+    },
+    {
+      "id": 67,
+      "title": "Kung Fu Dunk",
+      "description": "Comfy pet bed with washable cover for easy cleaning.",
+      "genre": "Action|Adventure|Comedy",
+      "price": 35.72,
+      "image_url": "http://dummyimage.com/584x274.png/cc0000/ffffff"
+    },
+    {
+      "id": 68,
+      "title": "Troll Hunter, The (Trolljegeren)",
+      "description": "Fresh organic blueberries perfect for snacking or baking.",
+      "genre": "Fantasy|Horror",
+      "price": 14.49,
+      "image_url": "http://dummyimage.com/597x278.png/dddddd/000000"
+    },
+    {
+      "id": 69,
+      "title": "Link",
+      "description": "Insulated mug to keep drinks hot on the go.",
+      "genre": "Horror|Thriller",
+      "price": 15.8,
+      "image_url": "http://dummyimage.com/503x256.png/ff4444/ffffff"
+    },
+    {
+      "id": 70,
+      "title": "Boiling Point",
+      "description": "DIY kit to make your own elderberry syrup.",
+      "genre": "Action|Drama",
+      "price": 11.76,
+      "image_url": "http://dummyimage.com/384x220.png/cc0000/ffffff"
+    },
+    {
+      "id": 71,
+      "title": "Daddy Nostalgia (Daddy Nostalgie)",
+      "description": "Durable training soccer ball for practice.",
+      "genre": "Drama",
+      "price": 56.09,
+      "image_url": "http://dummyimage.com/573x220.png/5fa2dd/ffffff"
+    },
+    {
+      "id": 72,
+      "title": "Three on a Weekend",
+      "description": "Durable ceramic bakeware for casseroles and desserts.",
+      "genre": "Drama",
+      "price": 15.97,
+      "image_url": "http://dummyimage.com/203x223.png/ff4444/ffffff"
+    },
+    {
+      "id": 73,
+      "title": "Aces High",
+      "description": "Durable skipping rope with adjustable length for workouts.",
+      "genre": "Action|Drama|War",
+      "price": 17.74,
+      "image_url": "http://dummyimage.com/392x220.png/ff4444/ffffff"
+    },
+    {
+      "id": 74,
+      "title": "Ring of Bright Water",
+      "description": "A creamy spread made with chocolate and hazelnuts, perfect for toast.",
+      "genre": "Comedy|Drama",
+      "price": 59.94,
+      "image_url": "http://dummyimage.com/495x227.png/dddddd/000000"
+    },
+    {
+      "id": 75,
+      "title": "Drishyam",
+      "description": "Just add water for delicious brownies.",
+      "genre": "Children|Drama|Thriller",
+      "price": 10.65,
+      "image_url": "http://dummyimage.com/505x202.png/5fa2dd/ffffff"
+    },
+    {
+      "id": 76,
+      "title": "Three (Tri)",
+      "description": "Interactive kitchen set for imaginative play.",
+      "genre": "Drama|War",
+      "price": 8.85,
+      "image_url": "http://dummyimage.com/543x215.png/ff4444/ffffff"
+    },
+    {
+      "id": 77,
+      "title": "Titanic",
+      "description": "Multi-port USB-C hub for connecting devices.",
+      "genre": "Action|Drama",
+      "price": 10.32,
+      "image_url": "http://dummyimage.com/576x283.png/dddddd/000000"
+    },
+    {
+      "id": 78,
+      "title": "High Wind in Jamaica, A",
+      "description": "Soft bagels flavored with cinnamon and raisins.",
+      "genre": "Adventure|Drama",
+      "price": null,
+      "image_url": "http://dummyimage.com/421x285.png/dddddd/000000"
+    },
+    {
+      "id": 79,
+      "title": "The Referee",
+      "description": "Assorted sliced cheese, perfect for sandwiches.",
+      "genre": "Comedy",
+      "price": 55.24,
+      "image_url": "http://dummyimage.com/291x221.png/ff4444/ffffff"
+    },
+    {
+      "id": 80,
+      "title": "Cord (Hide and Seek)",
+      "description": "Comprehensive first aid kit for home and travel.",
+      "genre": "Crime|Drama|Thriller",
+      "price": 33.39,
+      "image_url": "http://dummyimage.com/458x273.png/cc0000/ffffff"
+    },
+    {
+      "id": 81,
+      "title": "The Gamers",
+      "description": "Bold graphic hoodie featuring a comfortable fit and soft fabric.",
+      "genre": "Adventure|Comedy|Fantasy",
+      "price": 49.61,
+      "image_url": "http://dummyimage.com/247x210.png/5fa2dd/ffffff"
+    },
+    {
+      "id": 82,
+      "title": "Print the Legend",
+      "description": "Water bottle designed to infuse flavors from fruits.",
+      "genre": "Documentary",
+      "price": null,
+      "image_url": "http://dummyimage.com/463x247.png/ff4444/ffffff"
+    },
+    {
+      "id": 83,
+      "title": "Cria! (Cría cuervos)",
+      "description": "Essential oil blends for a soothing atmosphere in your home.",
+      "genre": "Drama|Mystery",
+      "price": 44.94,
+      "image_url": "http://dummyimage.com/519x228.png/ff4444/ffffff"
+    },
+    {
+      "id": 84,
+      "title": "American Idiots",
+      "description": "Comfortable harness designed to keep pets safe in the car.",
+      "genre": "Comedy|Romance",
+      "price": 3.69,
+      "image_url": "http://dummyimage.com/423x274.png/dddddd/000000"
+    },
+    {
+      "id": 85,
+      "title": "Tarantula",
+      "description": "Chewy bars made with peanut butter and chocolate chips.",
+      "genre": "Horror|Sci-Fi",
+      "price": 54.1,
+      "image_url": "http://dummyimage.com/373x239.png/cc0000/ffffff"
+    },
+    {
+      "id": 86,
+      "title": "V for Vendetta",
+      "description": "High-resolution camera for stunning photos.",
+      "genre": "Action|Sci-Fi|Thriller|IMAX",
+      "price": 40.67,
+      "image_url": "http://dummyimage.com/345x201.png/ff4444/ffffff"
+    },
+    {
+      "id": 87,
+      "title": "He Walked by Night",
+      "description": "Organizational cubes for easy packing and travel.",
+      "genre": "Crime|Film-Noir|Thriller",
+      "price": 7.7,
+      "image_url": "http://dummyimage.com/257x242.png/dddddd/000000"
+    },
+    {
+      "id": 88,
+      "title": "Last Bolshevik, The (Tombeau d'Alexandre, Le)",
+      "description": "Fresh mango salsa with a hint of lime for a zesty topping.",
+      "genre": "Documentary",
+      "price": 14.99,
+      "image_url": "http://dummyimage.com/373x231.png/cc0000/ffffff"
+    },
+    {
+      "id": 89,
+      "title": "Kenny Begins",
+      "description": "A cozy long cardigan designed for layering in any season.",
+      "genre": "Action|Comedy|Sci-Fi",
+      "price": 58.94,
+      "image_url": "http://dummyimage.com/491x287.png/ff4444/ffffff"
+    },
+    {
+      "id": 90,
+      "title": "Century of the Dragon (Long zai bian yuan)",
+      "description": "Rechargeable screwdriver with multiple bits for DIY projects.",
+      "genre": "Crime|Thriller",
+      "price": 16.77,
+      "image_url": "http://dummyimage.com/476x256.png/dddddd/000000"
+    },
+    {
+      "id": 91,
+      "title": "Relentless",
+      "description": "Chocolate coconut protein bars inspired by the classic candy bar.",
+      "genre": "Thriller",
+      "price": null,
+      "image_url": "http://dummyimage.com/527x296.png/5fa2dd/ffffff"
+    },
+    {
+      "id": 92,
+      "title": "Mr. Vampire (Geung si sin sang)",
+      "description": "Everything you need for a fresh and delicious Caesar salad.",
+      "genre": "Comedy|Fantasy|Horror",
+      "price": 51.16,
+      "image_url": "http://dummyimage.com/450x229.png/ff4444/ffffff"
+    },
+    {
+      "id": 93,
+      "title": "The Fighting 69th",
+      "description": "Color-changing LED lights for home decoration with remote.",
+      "genre": "Action|Adventure|Drama|War",
+      "price": 27.3,
+      "image_url": "http://dummyimage.com/422x208.png/dddddd/000000"
+    },
+    {
+      "id": 94,
+      "title": "Bootmen",
+      "description": "Quality scissors designed for easy pet grooming.",
+      "genre": "Comedy|Drama",
+      "price": 58.31,
+      "image_url": "http://dummyimage.com/352x222.png/dddddd/000000"
+    },
+    {
+      "id": 95,
+      "title": "Bridal Party in Hardanger, The (Brudeferden i Hardanger)",
+      "description": "Fresh salsa made with tomatoes, onions, and cilantro.",
+      "genre": "Drama|Romance",
+      "price": 2.04,
+      "image_url": "http://dummyimage.com/233x235.png/ff4444/ffffff"
+    },
+    {
+      "id": 96,
+      "title": "Vera Cruz",
+      "description": "Color-changing LED lights for home decoration with remote.",
+      "genre": "Adventure|Western",
+      "price": 0.26,
+      "image_url": "http://dummyimage.com/419x210.png/5fa2dd/ffffff"
+    },
+    {
+      "id": 97,
+      "title": "High Tech, Low Life",
+      "description": "Multi-level cat tree for climbing and scratching.",
+      "genre": "Documentary",
+      "price": 12.71,
+      "image_url": "http://dummyimage.com/327x256.png/dddddd/000000"
+    },
+    {
+      "id": 98,
+      "title": "And the Pursuit of Happiness (La poursuite du bonheur)",
+      "description": "Smart speaker with Alexa and music streaming features.",
+      "genre": "Documentary",
+      "price": 22.32,
+      "image_url": "http://dummyimage.com/489x285.png/cc0000/ffffff"
+    },
+    {
+      "id": 99,
+      "title": "Tenderness (Hellyys)",
+      "description": "A delicious sauce perfect for stir-frying or glazing meats.",
+      "genre": "Comedy",
+      "price": 18.43,
+      "image_url": "http://dummyimage.com/282x238.png/5fa2dd/ffffff"
+    },
+    {
+      "id": 100,
+      "title": "Stroszek",
+      "description": "Sweet, chewy dried apricots, great for snacking or baking.",
+      "genre": "Comedy|Drama",
+      "price": 1.68,
+      "image_url": "http://dummyimage.com/236x212.png/5fa2dd/ffffff"
     }
   ]
 }
