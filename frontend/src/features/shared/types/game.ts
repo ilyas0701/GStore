@@ -9,15 +9,24 @@ export interface PlatformType {
 }
 
 export interface Game {
-  id: string | number
+  id: string
   title: string
   description: string
   developer: string
-  price: number | null
+  price: number
   genre: Genre[]
   platform: PlatformType[]
   image_url?: string | null
   released_at: Date
+}
+
+export interface GameRaw {
+  id: number | string
+  title: string
+  description: string
+  genre: string
+  price: string | number | null
+  image_url?: string | null
 }
 
 export interface GameCompact

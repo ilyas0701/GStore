@@ -1,4 +1,4 @@
-import type { GameCompact } from "@/features/shared/types/game"
+import type { GameCompact, GameRaw } from "@/features/shared/types/game"
 import { games } from "@/data/games.json"
 import { adaptGenres } from "@/features/games/service/adapters/mock"
 
@@ -6,11 +6,15 @@ import { adaptGenres } from "@/features/games/service/adapters/mock"
 const API_URL = null
 
 const adaptGame = (
-  game: Omit<GameCompact, "genre"> & { genre: string }
+  game: Omit<GameRaw, "genre"> & {
+    genre: string
+  }
 ): GameCompact => {
   return {
     ...game,
+    id: String(game.id),
     genre: adaptGenres(game.genre as string),
+    price: Number(game.price) || 0,
   }
 }
 
@@ -38,17 +42,15 @@ export const fetchGames = async (): Promise<GameCompact[]> => {
 }
 
 export const fetchGameById = async (
-  id: string | number
+  id: string
 ): Promise<GameCompact | undefined> => {
-  const game = games.find((game) => game.id === Number(id))
+  const game = games.find((game) => String(game.id) === String(id))
   return game ? adaptGame(game) : undefined
 }
 
-export const fetchGameMediaById = async (
-  id: string | number
-): Promise<string> => {
+export const fetchGameMediaById = async (id: string): Promise<string> => {
   if (!API_URL) {
-    const game = games.find((game) => game.id === Number(id))
+    const game = games.find((game) => String(game.id) === String(id))
 
     if (!game?.image_url) {
       throw new Error(`No media found for game with id: ${id}`)
@@ -75,7 +77,7 @@ export const fetchGameMediaById = async (
 }
 
 export const purchaseGame = async (
-  gameId: string
+  gameId: string | number | null
 ): Promise<{ success: boolean }> => {
   const response = await fetch(`/api/purchase-game/${gameId}`, {
     method: "POST",
