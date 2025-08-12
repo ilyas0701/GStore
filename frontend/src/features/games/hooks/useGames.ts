@@ -1,6 +1,12 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query"
 import {
   fetchGames,
+  fetchGamesWithPagination,
   purchaseGame,
 } from "@/features/games/service/games.service"
 
@@ -10,6 +16,17 @@ export const useGames = () => {
   return useQuery({
     queryKey: ["games"],
     queryFn: fetchGames,
+    staleTime: STALE_TIME_5_MIN,
+  })
+}
+
+export const useInfiniteGames = (limit = 9) => {
+  return useInfiniteQuery({
+    queryKey: ["games", "infinite", limit],
+    queryFn: ({ pageParam = 1 }) =>
+      fetchGamesWithPagination({ page: pageParam, limit }),
+    getNextPageParam: (lastPage) => lastPage.nextPage,
+    initialPageParam: 1,
     staleTime: STALE_TIME_5_MIN,
   })
 }

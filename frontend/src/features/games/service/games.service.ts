@@ -1,36 +1,53 @@
-import type { GameCompact, GameRaw } from "@/features/shared/types/game"
+import type { GameCompact } from "@/features/shared/types/game"
 import { games } from "@/data/games.json"
-import { adaptGenres } from "@/features/games/service/adapters/mock"
+import { adaptGame } from "@/features/games/service/mappers/adaptGame"
 import { API_URL, DEFAULT_IMAGE_URL } from "@/features/shared/constants"
 
-const adaptGame = (
-  game: Omit<GameRaw, "genre"> & {
-    genre: string
-  }
-): GameCompact => {
-  return {
-    ...game,
-    id: String(game.id),
-    genre: adaptGenres(game.genre as string),
-    price: Number(game.price) || 0,
-    image_url: game.image_url || DEFAULT_IMAGE_URL,
-  }
+interface FetchGamesParams {
+  page?: number
+  limit?: number
 }
 
-export const fetchGames = async (): Promise<GameCompact[]> => {
-  if (!API_URL) {
-    await new Promise((resolve) => setTimeout(resolve, 100))
-    const response = games.map(adaptGame)
+interface PaginatedGamesResponse {
+  games: GameCompact[]
+  nextPage: number | null
+  hasNextPage: boolean
+  totalCount: number
+}
 
-    return response
+export const fetchGamesWithPagination = async ({
+  page = 1,
+  limit = 20,
+}: FetchGamesParams = {}): Promise<PaginatedGamesResponse> => {
+  if (!API_URL) {
+    await new Promise((resolve) => setTimeout(resolve, 500))
+
+    const startIndex = (page - 1) * limit
+    const endIndex = startIndex + limit
+
+    const gamesMap = games.map(adaptGame)
+
+    const gamesPaginated = gamesMap.slice(startIndex, endIndex)
+    const hasNextPage = endIndex < gamesMap.length
+
+    return {
+      games: gamesPaginated,
+      nextPage: hasNextPage ? page + 1 : null,
+      hasNextPage,
+      totalCount: gamesMap.length,
+    }
   } else {
-    const response = await fetch(`${API_URL}/games`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      cache: "no-store",
-    })
+    // TODO: actual backend api can be different.
+    const response = await fetch(
+      `${API_URL}/games?page=${page}&limit=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        cache: "no-store",
+      }
+    )
 
     if (!response.ok) {
       throw new Error("Failed to fetch games")
@@ -38,6 +55,11 @@ export const fetchGames = async (): Promise<GameCompact[]> => {
 
     return response.json()
   }
+}
+
+export const fetchGames = async (): Promise<GameCompact[]> => {
+  const result = await fetchGamesWithPagination({ page: 1, limit: 9 })
+  return result.games
 }
 
 export const fetchGameById = async (

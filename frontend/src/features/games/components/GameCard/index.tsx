@@ -3,7 +3,7 @@ import Link from "next/link"
 import { GameImage } from "@/features/games/components/GameCard/GameImage"
 import { formatPrice } from "@/features/games/utils/price"
 import { Badge } from "@/features/shared/components/Badge"
-import "./styles.scss"
+import "./styles/styles.scss"
 
 export const GameCard = ({ game }: { game: GameCompact }) => {
   const price = formatPrice(game.price || 0)
