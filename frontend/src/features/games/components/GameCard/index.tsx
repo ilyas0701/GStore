@@ -1,6 +1,6 @@
 import type { GameCompact } from "@/features/shared/types/game"
-import Image from "next/image"
 import Link from "next/link"
+import { GameImage } from "@/features/games/components/GameCard/GameImage"
 import { formatPrice } from "@/features/games/utils/price"
 import { Badge } from "@/features/shared/components/Badge"
 import "./styles.scss"
@@ -11,17 +11,7 @@ export const GameCard = ({ game }: { game: GameCompact }) => {
   return (
     <Link href={`/store/${game.id}`}>
       <div className="store-card">
-        <div className="game-image">
-          <Image
-            src={game.image_url || "/placeholder.png"}
-            alt={game.title}
-            fill
-            sizes="(260px)"
-            priority={true}
-            draggable={false}
-            style={{ objectFit: "cover" }}
-          />
-        </div>
+        <GameImage imageUrl={game.image_url} title={game.title} />
         <h2>{game.title}</h2>
         <p>{game.description}</p>
         <Badge text={price} />

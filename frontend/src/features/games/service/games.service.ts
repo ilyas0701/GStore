@@ -1,9 +1,7 @@
 import type { GameCompact, GameRaw } from "@/features/shared/types/game"
 import { games } from "@/data/games.json"
 import { adaptGenres } from "@/features/games/service/adapters/mock"
-
-// TODO: replace with env
-const API_URL = null
+import { API_URL, DEFAULT_IMAGE_URL } from "@/features/shared/constants"
 
 const adaptGame = (
   game: Omit<GameRaw, "genre"> & {
@@ -15,6 +13,7 @@ const adaptGame = (
     id: String(game.id),
     genre: adaptGenres(game.genre as string),
     price: Number(game.price) || 0,
+    image_url: game.image_url || DEFAULT_IMAGE_URL,
   }
 }
 
@@ -51,12 +50,11 @@ export const fetchGameById = async (
 export const fetchGameMediaById = async (id: string): Promise<string> => {
   if (!API_URL) {
     const game = games.find((game) => String(game.id) === String(id))
-
-    if (!game?.image_url) {
-      throw new Error(`No media found for game with id: ${id}`)
+    if (!game) {
+      throw new Error("Game not found")
     }
 
-    return game.image_url
+    return game.image_url || DEFAULT_IMAGE_URL
   } else {
     const response = await fetch(`${API_URL}/game-media/${id}`, {
       method: "GET",

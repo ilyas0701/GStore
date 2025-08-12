@@ -16,7 +16,7 @@ export interface Game {
   price: number
   genre: Genre[]
   platform: PlatformType[]
-  image_url?: string | null
+  image_url: string
   released_at: Date
 }
 
@@ -26,7 +26,7 @@ export interface GameRaw {
   description: string
   genre: string
   price: string | number | null
-  image_url?: string | null
+  image_url: string | null
 }
 
 export interface GameCompact
