@@ -13,12 +13,15 @@ export const GameRow = async ({ id, size = 1 }: GameRowProps) => {
   if (!game) {
     return <div>Game not found</div>
   }
+  const imageInstanceIds = Array.from({ length: size }, () =>
+    crypto.randomUUID()
+  )
 
   return (
     <div className="game-row">
-      {Array.from({ length: size }).map((_) => (
+      {imageInstanceIds.map((instanceId) => (
         <Image
-          key={`${game.id}_${Math.random()}`}
+          key={`${game.id}_${instanceId}`}
           className="game-row-image"
           src={game.image_url || "/placeholder.png"}
           alt={game.title}

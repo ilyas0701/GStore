@@ -24,7 +24,7 @@ export const GamePurchase = ({ id, price }: GamePurchaseProps) => {
         className="purchase-button"
         disabled={isPending}
       >
-        Buy Now
+        {isPending ? "Processing..." : price ? "Buy Now" : "Grab now"}
       </button>
     </div>
   )

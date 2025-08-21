@@ -28,7 +28,7 @@ $len: list.length($colors);
 
 @for $i from 1 through $len {
   .game-genre-row > .game-genre:nth-child(#{$len}n + #{$i}) .game-genre-button {
-    background: nth($colors, $i);
+    background: list.nth($colors, $i);
     color: #111;
   }
 }

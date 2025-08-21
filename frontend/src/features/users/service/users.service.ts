@@ -6,7 +6,6 @@ const API_URL = null
 
 export const fetchUsers = async (): Promise<UserDTO[]> => {
   if (!API_URL) {
-    await new Promise((resolve) => setTimeout(resolve, 100))
     return users
   } else {
     const response = await fetch(`${API_URL}/users`, {

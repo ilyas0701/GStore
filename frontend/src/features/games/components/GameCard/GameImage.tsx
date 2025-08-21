@@ -1,11 +1,12 @@
 import Image from "next/image"
+import { memo } from "react"
 
 interface GameImageProps {
   imageUrl: string
   title: string
 }
 
-export const GameImage = ({ imageUrl, title }: GameImageProps) => {
+export const GameImageComponent = ({ imageUrl, title }: GameImageProps) => {
   return (
     <div className="game-image">
       <Image
@@ -20,3 +21,5 @@ export const GameImage = ({ imageUrl, title }: GameImageProps) => {
     </div>
   )
 }
+
+export const GameImage = memo(GameImageComponent)

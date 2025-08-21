@@ -20,8 +20,6 @@ export const fetchGamesWithPagination = async ({
   limit = 20,
 }: FetchGamesParams = {}): Promise<PaginatedGamesResponse> => {
   if (!API_URL) {
-    await new Promise((resolve) => setTimeout(resolve, 500))
-
     const startIndex = (page - 1) * limit
     const endIndex = startIndex + limit
 
