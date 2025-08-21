@@ -1,6 +1,34 @@
+@use "sass:list";
+@use "../../../../app/variables" as *;
+
+$colors: #ffb4a2, #ffdac1, #e6e6fa, #b5eaea, #c7f9cc, #d6e4ff, #ffd6e0, #e2f0cb;
+$len: list.length($colors);
+
 .game-genre-button {
+  backface-visibility: hidden;
+  transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
   cursor: pointer;
   border: none;
   border-radius: 1rem;
+  background: list.nth($colors, 1);
   padding: 0.5rem;
+  color: #111;
+
+  &:hover {
+    transform: scale(1.05);
+    transition: transform $transition-short;
+  }
+
+  &:active {
+    transform: scale(0.95);
+    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@for $i from 1 through $len {
+  .game-genre-row > .game-genre:nth-child(#{$len}n + #{$i}) .game-genre-button {
+    background: nth($colors, $i);
+    color: #111;
+  }
 }
