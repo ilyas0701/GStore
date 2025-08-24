@@ -6,7 +6,6 @@ $len: list.length($colors);
 
 .game-genre-button {
   backface-visibility: hidden;
-  transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
   cursor: pointer;
   border: none;
@@ -14,20 +13,19 @@ $len: list.length($colors);
   background: list.nth($colors, 1);
   padding: 0.5rem;
   color: #111;
+  transform: translateZ(0);
 
   &:hover {
-    transform: scale(1.05);
-    transition: transform $transition-short;
+    transform: scale(1.05) translateZ(0);
   }
 
   &:active {
-    transform: scale(0.95);
-    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: scale(0.95) translateZ(0);
   }
 }
 
 @for $i from 1 through $len {
-  .game-genre-row > .game-genre:nth-child(#{$len}n + #{$i}) .game-genre-button {
+  .game-genre-row>.game-genre:nth-child(#{$len}n + #{$i}) .game-genre-button {
     background: list.nth($colors, $i);
     color: #111;
   }
