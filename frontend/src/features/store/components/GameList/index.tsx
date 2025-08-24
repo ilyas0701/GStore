@@ -7,6 +7,10 @@ import { GameCard } from "@/features/games/components/GameCard"
 import { useInfiniteGames } from "@/features/games/hooks/useGames"
 import { LoadingGrid } from "@/features/store/components/GameList/LoadingGrid"
 import "./styles.scss"
+import { useInfiniteScroll } from "@/features/games/hooks/useInfiniteScroll"
+import { ErrorState } from "./ErrorState"
+import { EmptyState } from "./EmptyState"
+import { GameListGrid } from "./GameListGrid"
 
 interface GameListProps {
   pageSize?: number
@@ -22,35 +26,28 @@ export const GameList = ({ pageSize = 9 }: GameListProps) => {
     status,
   } = useInfiniteGames(pageSize)
 
-  const { inView, ref } = useInView({
-    threshold: 0,
-    rootMargin: "100px",
+  const { ref } = useInfiniteScroll({
+    onLoadMore: fetchNextPage,
+    canLoad: Boolean(hasNextPage && !isFetchingNextPage)
   })
-
-  useEffect(() => {
-    if (inView && hasNextPage && !isFetchingNextPage) {
-      fetchNextPage()
-    }
-  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage])
 
   if (status === "pending") {
     return <LoadingGrid pageSize={pageSize} />
   }
 
   if (status === "error" || error) {
-    // TODO
-    throw new Error("This component is not implemented yet.")
+    return <ErrorState error={error} onRetry={() => window.location.reload()} />
   }
 
   const gamesList = data.pages.flatMap((page) => page.games) ?? []
 
+  if (gamesList.length === 0) {
+    return <EmptyState />
+  }
+
   return (
     <div className="game-list-container">
-      <div className="game-list">
-        {gamesList.map((game: GameCompact) => (
-          <GameCard game={game} key={game.id} />
-        ))}
-      </div>
+      <GameListGrid games={gamesList} />
       <div ref={ref} className="infinite-scroll-trigger">
         {isFetchingNextPage && <LoadingGrid pageSize={pageSize} />}
       </div>
