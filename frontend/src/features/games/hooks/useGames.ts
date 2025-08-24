@@ -41,8 +41,7 @@ export const usePurchaseGame = () => {
 
   return useMutation({
     mutationFn: ({ gameId }: { gameId: string }) =>
-      purchaseGame(gameId)
-    ,
+      purchaseGame(gameId),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: GAMES_QUERY_KEY.root,
