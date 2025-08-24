@@ -1,72 +1,78 @@
 @use "../../../../../app/variables" as *;
 
-.store-card {
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 0.75rem;
-  transition: transform $transition-default;
-  margin: 1rem 0;
-  border: 0.0625rem solid #ccc;
-  border-radius: 1rem;
-  padding: 1rem;
-  width: 18.75rem;
+a {
   height: 18.75rem;
-  color: $white;
-  text-align: left;
 
-  h2 {
-    width: 100%;
-    padding-bottom: 0.2em;
-    line-height: 1.3;
-  }
+  .store-card {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 0.75rem;
+    transition: transform $transition-default, border $transition-short;
+    margin: 1rem 0;
+    border: 0.0625rem solid rgba(204, 204, 204, .3);
+    border-radius: 1rem;
+    padding: 1rem;
+    width: 18.75rem;
+    height: 18.75rem;
+    color: $white;
+    text-align: left;
 
-  p {
-    opacity: 0.3;
-    transition:
-      opacity 0.35s ease-in-out,
-      max-height 0.35s ease-in-out;
-    margin: 0;
-    max-height: 1.5rem;
-  }
-
-  h2,
-  p {
-    display: -webkit-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
-
-  &:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    h2 {
+      width: 100%;
+      padding-bottom: 0.2em;
+      line-height: 1.3;
+    }
 
     p {
-      opacity: 1;
-      max-height: 3rem;
+      opacity: 0.3;
+      transition:
+        opacity 0.35s ease-in-out,
+        max-height 0.35s ease-in-out;
+      margin: 0;
+      max-height: 1.5rem;
+    }
+
+    h2,
+    p {
+      display: -webkit-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border: 0.0625rem solid rgba(204, 204, 204, 1);
+      transition: border $transition-short;
+
+      p {
+        opacity: 1;
+        max-height: 3rem;
+      }
+
+      .game-image {
+        transition: height 0.35s ease-in-out;
+        height: 100px;
+      }
     }
 
     .game-image {
+      position: relative;
       transition: height 0.35s ease-in-out;
-      height: 100px;
-    }
-  }
-
-  .game-image {
-    position: relative;
-    transition: height 0.35s ease-in-out;
-    width: 100%;
-    height: 150px;
-
-    img {
-      border-radius: 0.9375rem;
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: 150px;
+
+      img {
+        border-radius: 0.9375rem;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
   }
 }
