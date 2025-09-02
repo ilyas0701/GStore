@@ -3,6 +3,7 @@ using GameStore.BLL;
 using GameStore.BLL.Abstract;
 using GameStore.DAL;
 using GameStore.DAL.Abstract;
+using GameStore.Web.Middleware;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -26,18 +27,22 @@ namespace GameStore.Web
             // Register BLL services
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IGameService, GameService>();
+            builder.Services.AddScoped<ICommentService, CommentService>();
 
             var app = builder.Build();
-
+            
             app.MapHealthChecks("/healthz");
 
+            app.UseHttpsRedirection()
+                .UseStaticFiles()
+                .UseRouting()
+                .UseAuthentication()
+                .UseAuthorization()
+                .UseMiddleware<ExceptionHandlingMiddleware>();
+            
             // Enable OpenAPI and Scalar API
             app.MapOpenApi().CacheOutput();
             app.MapScalarApiReference();
-
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
 
             app.MapControllers();
 

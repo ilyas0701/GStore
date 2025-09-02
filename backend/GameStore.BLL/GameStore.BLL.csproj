@@ -10,6 +10,7 @@
     <ProjectReference Include="..\GameStore.BLL.Abstract\GameStore.BLL.Abstract.csproj" />
     <ProjectReference Include="..\GameStore.DAL.Abstract\GameStore.DAL.Abstract.csproj" />
     <ProjectReference Include="..\GameStore.Models\GameStore.Models.csproj" />
+    <ProjectReference Include="..\GameStore.Utils\GameStore.Utils.csproj" />
   </ItemGroup>
 
 </Project>

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GameStore.DAL.Repositories
 {
-    public class GenreRepository : EFGenericRepository<DbGenre>, IGenreRepository
+    public class GenreRepository : EfGenericRepository<DbGenre>, IGenreRepository
     {
         public GenreRepository(DbContext context) : base(context)
         {

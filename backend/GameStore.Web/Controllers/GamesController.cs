@@ -2,25 +2,17 @@
 using GameStore.Models.DTO;
 using GameStore.Web.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace GameStore.Web.Controllers
 {
     [ApiController]
     [Route("api/v1/games")]
-    public class GamesController : Controller
+    public class GamesController(IGameService gameService, ICommentService commentService) : Controller
     {
-        private readonly IGameService _gameService;
-
-        public GamesController(IGameService gameService)
-        {
-            _gameService = gameService;
-        }
-
         [HttpGet("all")]
-        public async Task<IActionResult> GetGames()
+        public async Task<IActionResult> GetGames(CancellationToken cancellationToken)
         {
-            var games = await _gameService.GetAllGamesAsync();
+            var games = await gameService.GetAllGamesAsync(cancellationToken);
 
             var response = games.Select(g => new GameResponse
             {
@@ -37,14 +29,14 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpPost("new")]
-        public async Task<IActionResult> CreateGame([FromBody] GameResponse gameResponse, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateGame([FromBody] GameResponse? gameResponse, CancellationToken cancellationToken)
         {
             if (gameResponse == null)
             {
                 return BadRequest("Game data is null.");
             }
 
-            await _gameService.CreateGameAsync(new GameDto
+            await gameService.CreateGameAsync(new GameDto
             {
                 Title = gameResponse.Title,
                 Description = gameResponse.Description,
@@ -60,110 +52,72 @@ namespace GameStore.Web.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetGameById(int id)
         {
-            try
+            var game = await gameService.GetGameByIdAsync(id);
+            
+            var response = new GameResponse
             {
-                var game = await _gameService.GetGameByIdAsync(id);
-                var response = new GameResponse
-                {
-                    Id = game.Id,
-                    Title = game.Title,
-                    Description = game.Description,
-                    Developer = game.Developer,
-                    Price = game.Price,
-                    ImgUrl = game.ImgUrl,
-                    ReleaseAtDate = game.ReleaseAtDate
-                };
-                return Ok(response);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+                Id = game.Id,
+                Title = game.Title,
+                Description = game.Description,
+                Developer = game.Developer,
+                Price = game.Price,
+                ImgUrl = game.ImgUrl,
+                ReleaseAtDate = game.ReleaseAtDate
+            };
+            
+            return Ok(response);
         }
 
         [HttpPut("update")]
         public async Task<IActionResult> UpdateGameInfo([FromBody] GameResponse gameResponse, CancellationToken cancellationToken)
         {
-            if (gameResponse == null)
+            await gameService.UpdateGameInfo(new GameDto
             {
-                return BadRequest("Game data is null");
-            }
+                Id = gameResponse.Id,
+                Title = gameResponse.Title,
+                Description = gameResponse.Description,
+                Developer = gameResponse.Developer,
+                Price = gameResponse.Price,
+                ImgUrl = gameResponse.ImgUrl,
+                ReleaseAtDate = gameResponse.ReleaseAtDate
+            }, cancellationToken);
 
-            try
-            {
-                await _gameService.UpdateGameInfo(new GameDto
-                {
-                    Id = gameResponse.Id,
-                    Title = gameResponse.Title,
-                    Description = gameResponse.Description,
-                    Developer = gameResponse.Developer,
-                    Price = gameResponse.Price,
-                    ImgUrl = gameResponse.ImgUrl,
-                    ReleaseAtDate = gameResponse.ReleaseAtDate
-                }, cancellationToken);
-
-                return Accepted();
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            return Accepted();
         }
 
         [HttpDelete("remove")]
         public async Task<IActionResult> RemoveGameInfo([FromBody] int id, CancellationToken cancellationToken)
         {
-            try
-            {
-                await _gameService.RemoveGame(id, cancellationToken);
+            await gameService.RemoveGame(id, cancellationToken);
 
-                return Accepted();
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            return Accepted();
         }
 
         [HttpGet("{id:int}/comments")]
-        public async Task<IActionResult> GetGameComments(int id)
+        public async Task<IActionResult> GetGameComments(int id, CancellationToken cancellationToken)
         {
-            try
-            {
-                var comments = await _gameService.GetCommentAsync(id);
+            var comments = await commentService.GetCommentAsync(id, cancellationToken);
 
-                return Ok(comments.Select(r => new CommentResponse
-                {
-                    Id = r.Id,
-                    Name = r.Name,
-                    Content = r.Body
-                }));
-            }
-            catch (KeyNotFoundException ex)
+            return Ok(comments?.Select(r => new CommentResponse
             {
-                return NotFound(ex.Message);
-            }
+                Id = r.Id,
+                Name = r.Name,
+                Content = r.Body
+            }));
         }
 
-        [HttpPost("{gameId:int}/newcomment")]
+        [HttpPost("{gameId:int}/new-comment")]
         public async Task<IActionResult> CreateGameComment(int gameId, [FromBody] CommentResponse commentResponse, CancellationToken cancellationToken)
         {
-            try
+            await commentService.CreateCommentAsync(new CommentDto
             {
-                await _gameService.CreateCommentAsync(new CommentDto
-                {
-                    Id = commentResponse.Id,
-                    Name = commentResponse.Name,
-                    Body = commentResponse.Content,
-                    GameId = gameId
-                }, cancellationToken);
+                Id = commentResponse.Id,
+                Name = commentResponse.Name,
+                Body = commentResponse.Content,
+                GameId = gameId
+            }, cancellationToken);
 
-                return CreatedAtAction(nameof(GetGames), commentResponse);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"An error occurred while creating the comment: {ex.Message}");
-            }
+            return Ok(commentResponse);
         }
 
         [HttpGet("{gameId:int}/download")]

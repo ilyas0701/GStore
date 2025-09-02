@@ -3,21 +3,15 @@ using GameStore.BLL.Abstract;
 using GameStore.DAL.Abstract;
 using GameStore.Models;
 using GameStore.Models.DTO;
-using System.IO;
-using System.Text;
+using GameStore.Utils.Exceptions;
 
 namespace GameStore.BLL
 {
-    public class GameService : IGameService
+    public class GameService(IUnitOfWork unitOfWork) : IGameService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        public GameService(IUnitOfWork unitOfWork)
+        public async Task<IEnumerable<GameDto>> GetAllGamesAsync(CancellationToken cancellationToken)
         {
-            _unitOfWork = unitOfWork;
-        }
-        public async Task<IEnumerable<GameDto>> GetAllGamesAsync()
-        {
-            var game = await _unitOfWork.GameRepository.GetAsync();
+            var game = await unitOfWork.GameRepository.GetAsync(cancellationToken);
 
             return game.Select(g => new GameDto
             {
@@ -43,16 +37,17 @@ namespace GameStore.BLL
                 ReleaseAtDate = gameDto.ReleaseAtDate
             };
 
-            _unitOfWork.GameRepository.Create(game);
-            await _unitOfWork.CommitAsync(cancellationToken);
+            unitOfWork.GameRepository.Create(game);
+            await unitOfWork.CommitAsync(cancellationToken);
         }
 
         public async Task<GameDto> GetGameByIdAsync(int id)
-        {
-            var game = await _unitOfWork.GameRepository.FindById(id);
+        {   
+            var game = await unitOfWork.GameRepository.FindById(id);
+            
             if (game == null)
             {
-                throw new KeyNotFoundException($"Game with id {id} not found.");
+                throw new NotFoundException($"Game with id {id} not found.");
             }
             return new GameDto
             {
@@ -68,11 +63,11 @@ namespace GameStore.BLL
 
         public async Task UpdateGameInfo(GameDto gameDto, CancellationToken cancellationToken)
         {
-            var game = await _unitOfWork.GameRepository.FindById(gameDto.Id);
+            var game = await unitOfWork.GameRepository.FindById(gameDto.Id);
 
             if (game == null)
             {
-                throw new KeyNotFoundException($"Game with id {gameDto.Id} not found.");
+                throw new NotFoundException($"Game with id {gameDto.Id} not found.");
             }
 
             game.Title = gameDto.Title;
@@ -82,67 +77,21 @@ namespace GameStore.BLL
             game.ImgUrl = gameDto.ImgUrl;
             game.ReleaseAtDate = gameDto.ReleaseAtDate;
 
-            _unitOfWork.GameRepository.Update(game);
-            await _unitOfWork.CommitAsync(cancellationToken);
+            unitOfWork.GameRepository.Update(game);
+            await unitOfWork.CommitAsync(cancellationToken);
         }
 
         public async Task RemoveGame(int id, CancellationToken cancellationToken)
         {
-            var game = await _unitOfWork.GameRepository.FindById(id);
+            var game = await unitOfWork.GameRepository.FindById(id);
 
             if(game == null)
             {
-                throw new KeyNotFoundException($"Game with id {id} not found.");
+                throw new NotFoundException($"Game with id {id} not found.");
             }
 
-            _unitOfWork.GameRepository.Remove(game);
-            await _unitOfWork.CommitAsync(cancellationToken);
-        }
-
-        public async Task CreateCommentAsync(CommentDto commentDto, CancellationToken cancellationToken)
-        {
-            var game = await _unitOfWork.GameRepository.FindById(commentDto.GameId);
-            
-            if (game == null)
-            {
-                throw new KeyNotFoundException($"Game with id {commentDto.GameId} not found.");
-            }
-
-            var comment = new DbComment
-            {
-                GameId = commentDto.GameId,
-                Name = commentDto.Name,
-                Body = commentDto.Body,
-                Game = game
-            };
-
-            _unitOfWork.CommentRepository.Create(comment);
-            await _unitOfWork.CommitAsync(cancellationToken);
-        }
-
-        public async Task<IEnumerable<CommentDto>> GetCommentAsync(int gameId)
-        {
-            var game = await _unitOfWork.GameRepository.FindById(gameId);
-
-            if (game == null)
-            {
-                throw new KeyNotFoundException($"Game with id {gameId} not found.");
-            }
-
-            var comments = await _unitOfWork.CommentRepository.GetAsync(c => c.GameId == gameId);
-
-            if (comments == null || !comments.Any())
-            {
-                throw new KeyNotFoundException($"No comments found for game with id {gameId}.");
-            }
-
-            return comments.Select(c => new CommentDto
-            {
-                Id = c.Id,
-                GameId = c.GameId,
-                Name = c.Name,
-                Body = c.Body
-            });
+            unitOfWork.GameRepository.Remove(game);
+            await unitOfWork.CommitAsync(cancellationToken);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace GameStore.BLL.Abstract
 {
     public interface IGameService
     {
-        Task<IEnumerable<GameDto>> GetAllGamesAsync();
+        Task<IEnumerable<GameDto>> GetAllGamesAsync(CancellationToken cancellationToken);
         
         Task CreateGameAsync(GameDto gameDto, CancellationToken cancellationToken);
 
@@ -14,9 +14,5 @@ namespace GameStore.BLL.Abstract
         Task UpdateGameInfo(GameDto gameDto, CancellationToken cancellationToken);
 
         Task RemoveGame(int id, CancellationToken cancellationToken);
-
-        Task CreateCommentAsync(CommentDto commentDto, CancellationToken cancellationToken);
-
-        Task<IEnumerable<CommentDto>> GetCommentAsync(int gameId);
     }
 }
