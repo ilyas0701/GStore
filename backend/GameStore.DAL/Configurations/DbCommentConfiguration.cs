@@ -23,6 +23,14 @@ namespace GameStore.DAL.Configurations
                 .IsRequired()
                 .HasMaxLength(1000);
 
+            builder.Property(c => c.ParentId)
+                .IsRequired(false);
+
+            builder.HasOne(c => c.Parent)
+                .WithMany(c => c.Replies)
+                .HasForeignKey(c => c.ParentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.HasOne(c => c.Game)
                 .WithMany(g => g.Comments)
                 .HasForeignKey(c => c.GameId)

@@ -98,24 +98,20 @@ namespace GameStore.Web.Controllers
         {
             var comments = await commentService.GetCommentAsync(id, cancellationToken);
 
-            return Ok(comments?.Select(r => new CommentResponse
-            {
-                Id = r.Id,
-                Name = r.Name,
-                Content = r.Body
-            }));
+            return Ok(comments);
         }
 
         [HttpPost("{gameId:int}/new-comment")]
         public async Task<IActionResult> CreateGameComment(int gameId, [FromBody] CommentResponse commentResponse, CancellationToken cancellationToken)
         {
-            await commentService.CreateCommentAsync(new CommentDto
-            {
-                Id = commentResponse.Id,
-                Name = commentResponse.Name,
-                Body = commentResponse.Content,
-                GameId = gameId
-            }, cancellationToken);
+            await commentService.CreateCommentAsync(new CommentDto(
+                commentResponse.Id,
+                gameId,
+                commentResponse.ParentId,
+                commentResponse.Name,
+                commentResponse.Content,
+                new List<CommentDto>()
+            ), cancellationToken);
 
             return Ok(commentResponse);
         }

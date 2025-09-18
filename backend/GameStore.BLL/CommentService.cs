@@ -3,6 +3,7 @@ using GameStore.DAL.Abstract;
 using GameStore.Models;
 using GameStore.Models.DTO;
 using GameStore.Utils.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace GameStore.BLL;
 
@@ -20,6 +21,7 @@ public class CommentService(IUnitOfWork unitOfWork) : ICommentService
         var comment = new DbComment
         {
             GameId = commentDto.GameId,
+            ParentId = commentDto.ParentId,
             Name = commentDto.Name,
             Body = commentDto.Body
         };
@@ -30,14 +32,35 @@ public class CommentService(IUnitOfWork unitOfWork) : ICommentService
 
     public async Task<IEnumerable<CommentDto>?> GetCommentAsync(int gameId, CancellationToken cancellationToken)
     {
-        var comments = await unitOfWork.CommentRepository.GetAsync(g => gameId == g.GameId, cancellationToken);
-            
-        return comments?.Select(c => new CommentDto
-        {
-            Id = c.Id,
-            GameId = c.GameId,
-            Name = c.Name,
-            Body = c.Body
-        });
+        var allComments = await unitOfWork.CommentRepository
+            .GetQueryable(g => gameId == g.GameId)
+            .Include(c => c.Replies)
+            .ToListAsync(cancellationToken);
+
+        var commentLookup = allComments.ToDictionary(c => c.Id);
+
+        var rootComments = allComments
+            .Where(c => c.ParentId == null)
+            .Select(c => MapToDtoWithReplies(c, commentLookup))
+            .ToList();
+
+        return rootComments;
+    }
+
+    private CommentDto MapToDtoWithReplies(DbComment comment, Dictionary<int, DbComment> commentLookup)
+    {
+        var replies = commentLookup.Values
+            .Where(c => c.ParentId == comment.Id)
+            .Select(c => MapToDtoWithReplies(c, commentLookup))
+            .ToList();
+
+        return new CommentDto(
+            comment.Id,
+            comment.GameId,
+            comment.ParentId,
+            comment.Name,
+            comment.Body,
+            replies
+        );
     }
 }

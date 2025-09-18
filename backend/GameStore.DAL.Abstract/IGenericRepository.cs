@@ -10,5 +10,6 @@ namespace GameStore.DAL.Abstract
         Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
         void Remove(TEntity item);
         void Update(TEntity item);
+        IQueryable<TEntity> GetQueryable(Expression<Func<TEntity, bool>> predicate);
     }
 }

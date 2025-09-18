@@ -1,11 +1,5 @@
 ﻿
 namespace GameStore.Models.DTO
 {
-    public class CommentDto
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = null!;
-        public string Body { get; set; } = null!;
-        public int GameId { get; set; }
-    }
+    public record CommentDto(int Id, int GameId, int? ParentId, string Name, string Body, List<CommentDto> Replies);
 }

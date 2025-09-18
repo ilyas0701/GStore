@@ -1,9 +1,4 @@
 ﻿namespace GameStore.Web.Models.Responses
 {
-    public class CommentResponse
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = null!;
-        public string Content { get; set; } = null!;
-    }
+    public record CommentResponse(int Id, string Name, string Content, int? ParentId);
 }

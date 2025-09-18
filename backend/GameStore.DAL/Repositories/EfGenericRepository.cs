@@ -38,5 +38,10 @@ namespace GameStore.DAL.Repositories
         {
             _dbSet.Remove(item);
         }
+        
+        public IQueryable<TEntity> GetQueryable(Expression<Func<TEntity, bool>> predicate)
+        {
+            return _dbSet.Where(predicate).AsNoTracking();
+        }
     }
 }
