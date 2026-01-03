@@ -1,4 +1,3 @@
-
 using GameStore.BLL;
 using GameStore.BLL.Abstract;
 using GameStore.DAL;
@@ -29,16 +28,34 @@ namespace GameStore.Web
             builder.Services.AddScoped<IGameService, GameService>();
             builder.Services.AddScoped<ICommentService, CommentService>();
 
+            builder.Services.AddHsts(options =>
+            {
+                options.MaxAge = TimeSpan.FromDays(365);
+                options.IncludeSubDomains = true;
+                options.Preload = true;
+            });
+
             var app = builder.Build();
-            
+
             app.MapHealthChecks("/healthz");
 
-            app.UseHttpsRedirection()
+            if (!app.Environment.IsDevelopment())
+            {
+                app.UseHsts();
+            }
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<GStoreDatabaseContext>();
+                context.Database.Migrate();
+            }
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>()
+                .UseHttpsRedirection()
                 .UseStaticFiles()
                 .UseRouting()
                 .UseAuthentication()
-                .UseAuthorization()
-                .UseMiddleware<ExceptionHandlingMiddleware>();
+                .UseAuthorization();
             
             // Enable OpenAPI and Scalar API
             app.MapOpenApi().CacheOutput();

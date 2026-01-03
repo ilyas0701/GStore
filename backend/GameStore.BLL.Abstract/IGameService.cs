@@ -9,7 +9,7 @@ namespace GameStore.BLL.Abstract
         
         Task CreateGameAsync(GameDto gameDto, CancellationToken cancellationToken);
 
-        Task<GameDto> GetGameByIdAsync(int id);
+        Task<GameDto> GetGameByIdAsync(int id, CancellationToken cancellationToken);
 
         Task UpdateGameInfo(GameDto gameDto, CancellationToken cancellationToken);
 

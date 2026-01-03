@@ -1,10 +1,7 @@
-using System.Globalization;
-using System.Net;
 using GameStore.Utils.Exceptions;
 using GameStore.Utils.Extensions;
 using GameStore.Utils.Models;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Primitives;
+using System.Net;
 
 namespace GameStore.Web.Middleware;
 
@@ -12,16 +9,11 @@ public class ExceptionHandlingMiddleware(
     RequestDelegate next,
     ILogger<ExceptionHandlingMiddleware> logger)
 {
-    private static readonly string HstsMaxAge = Convert.ToInt64(Math.Floor(TimeSpan.FromDays(30)
-            .TotalSeconds))
-        .ToString(CultureInfo.InvariantCulture);
-
     public async Task Invoke(HttpContext context)
     {
         try
         {
             await next(context);
-            HandleStatusCodes(context);
         }
         catch (Exception ex)
         {
@@ -33,39 +25,44 @@ public class ExceptionHandlingMiddleware(
     {
         logger.LogError(ex, "Exception of type {ExType} occurred", ex.GetType());
 
+        if (context.Response.HasStarted)
+        {
+            logger.LogWarning("Response has already started, cannot modify status code");
+            return;
+        }
+
         var statusCode = GetStatusCodeByException(ex);
         context.Response.StatusCode = statusCode;
-        var response = InternalErrorCode.UnknownError;
+        context.Response.ContentType = "application/json";
 
-        if (context.Request.IsHttps)
-            context.Response.Headers.StrictTransportSecurity = new StringValues($"max-age={HstsMaxAge}{StringSegment.Empty}{StringSegment.Empty}");
+        var response = new
+        {
+            Error = new
+            {
+                Code = ex.GetType().Name,
+                Message = ex.Message,
+                StatusCode = statusCode,
+                Timestamp = DateTime.UtcNow
+            }
+        };
 
         context.Response.Headers.ContentSecurityPolicy = "default-src 'self'";
+        context.Response.Headers.XContentTypeOptions = "nosniff";
+        context.Response.Headers.XFrameOptions = "DENY";
 
-        await context.Response.WriteAsync(response.SerializeToJson());
+        await context.Response.WriteAsJsonAsync(response);
     }
     
     private static int GetStatusCodeByException(Exception ex)
     {
         return ex switch
         {
-            EntryDuplicateException => 400,
-            BadRequestException => 400,
-            UnauthorizedException => 401,
-            ForbiddenException => 403,
-            NotFoundException => 404,
-            _ => 500
+            EntryDuplicateException => (int)HttpStatusCode.BadRequest,
+            BadRequestException => (int)HttpStatusCode.BadRequest,
+            UnauthorizedException => (int)HttpStatusCode.Unauthorized,
+            ForbiddenException => (int)HttpStatusCode.Forbidden,
+            NotFoundException => (int)HttpStatusCode.NotFound,
+            _ => (int)HttpStatusCode.InternalServerError
         };
-    }
-    
-    private static void HandleStatusCodes(HttpContext context)
-    {
-        switch (context.Response.StatusCode)
-        {
-            case (int)HttpStatusCode.NotFound: throw new NotFoundException($"There is nothing by the URL requested {context.Request.Path}");
-            case (int)HttpStatusCode.Unauthorized: throw new UnauthorizedException();
-            case (int)HttpStatusCode.Forbidden: throw new ForbiddenException();
-            default: return;
-        }
     }
 }

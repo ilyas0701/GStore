@@ -11,7 +11,7 @@ public class CommentService(IUnitOfWork unitOfWork) : ICommentService
 {
     public async Task CreateCommentAsync(CommentDto commentDto, CancellationToken cancellationToken)
     {
-        var game = await unitOfWork.GameRepository.FindById(commentDto.GameId);
+        var game = await unitOfWork.GameRepository.FindById(commentDto.GameId, cancellationToken);
             
         if (game == null)
         {

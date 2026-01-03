@@ -9,26 +9,26 @@ namespace GameStore.Web.Controllers
     [Route("api/v1/games")]
     public class GamesController(IGameService gameService, ICommentService commentService) : Controller
     {
-        [HttpGet("all")]
+        [HttpGet]
         public async Task<IActionResult> GetGames(CancellationToken cancellationToken)
         {
             var games = await gameService.GetAllGamesAsync(cancellationToken);
 
             var response = games.Select(g => new GameResponse
-            {
-                Id = g.Id,
-                Title = g.Title,
-                Description = g.Description,
-                Developer = g.Developer,
-                Price = g.Price,
-                ImgUrl = g.ImgUrl,
-                ReleaseAtDate = g.ReleaseAtDate
-            });
+            (
+                g.Id,
+                g.Title,
+                g.Description,
+                g.Developer,
+                g.Price,
+                g.ImgUrl,
+                g.ReleaseAtDate
+            ));
 
             return Ok(response);
         }
 
-        [HttpPost("new")]
+        [HttpPost]
         public async Task<IActionResult> CreateGame([FromBody] GameResponse? gameResponse, CancellationToken cancellationToken)
         {
             if (gameResponse == null)
@@ -37,56 +37,57 @@ namespace GameStore.Web.Controllers
             }
 
             await gameService.CreateGameAsync(new GameDto
-            {
-                Title = gameResponse.Title,
-                Description = gameResponse.Description,
-                Developer = gameResponse.Developer,
-                Price = gameResponse.Price,
-                ImgUrl = gameResponse.ImgUrl,
-                ReleaseAtDate = gameResponse.ReleaseAtDate
-            }, cancellationToken);
+            (
+                0,
+                gameResponse.Title,
+                gameResponse.Description,
+                gameResponse.Developer,
+                gameResponse.Price,
+                gameResponse.ImgUrl,
+                gameResponse.ReleaseAtDate
+            ), cancellationToken);
 
             return CreatedAtAction(nameof(GetGames), new { id = gameResponse.Id }, gameResponse);
         }
 
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetGameById(int id)
+        public async Task<IActionResult> GetGameById(int id, CancellationToken cancellationToken)
         {
-            var game = await gameService.GetGameByIdAsync(id);
-            
+            var game = await gameService.GetGameByIdAsync(id, cancellationToken);
+
             var response = new GameResponse
-            {
-                Id = game.Id,
-                Title = game.Title,
-                Description = game.Description,
-                Developer = game.Developer,
-                Price = game.Price,
-                ImgUrl = game.ImgUrl,
-                ReleaseAtDate = game.ReleaseAtDate
-            };
-            
+            (
+                game.Id,
+                game.Title,
+                game.Description,
+                game.Developer,
+                game.Price,
+                game.ImgUrl,
+                game.ReleaseAtDate
+            );
+
             return Ok(response);
         }
 
-        [HttpPut("update")]
-        public async Task<IActionResult> UpdateGameInfo([FromBody] GameResponse gameResponse, CancellationToken cancellationToken)
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateGameInfo(int id, [FromBody] GameResponse gameResponse, CancellationToken cancellationToken)
         {
             await gameService.UpdateGameInfo(new GameDto
-            {
-                Id = gameResponse.Id,
-                Title = gameResponse.Title,
-                Description = gameResponse.Description,
-                Developer = gameResponse.Developer,
-                Price = gameResponse.Price,
-                ImgUrl = gameResponse.ImgUrl,
-                ReleaseAtDate = gameResponse.ReleaseAtDate
-            }, cancellationToken);
+            (
+                id,
+                gameResponse.Title,
+                gameResponse.Description,
+                gameResponse.Developer,
+                gameResponse.Price,
+                gameResponse.ImgUrl,
+                gameResponse.ReleaseAtDate
+            ), cancellationToken);
 
             return Accepted();
         }
 
-        [HttpDelete("remove")]
-        public async Task<IActionResult> RemoveGameInfo([FromBody] int id, CancellationToken cancellationToken)
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> RemoveGameInfo(int id, CancellationToken cancellationToken)
         {
             await gameService.RemoveGame(id, cancellationToken);
 
@@ -101,29 +102,29 @@ namespace GameStore.Web.Controllers
             return Ok(comments);
         }
 
-        [HttpPost("{gameId:int}/new-comment")]
-        public async Task<IActionResult> CreateGameComment(int gameId, [FromBody] CommentResponse commentResponse, CancellationToken cancellationToken)
+        [HttpPost("{id:int}/comments")]
+        public async Task<IActionResult> CreateGameComment(int id, [FromBody] CommentResponse commentResponse, CancellationToken cancellationToken)
         {
             await commentService.CreateCommentAsync(new CommentDto(
                 commentResponse.Id,
-                gameId,
+                id,
                 commentResponse.ParentId,
                 commentResponse.Name,
                 commentResponse.Content,
                 new List<CommentDto>()
             ), cancellationToken);
 
-            return Ok(commentResponse);
+            return CreatedAtAction(nameof(GetGameComments), new { id }, commentResponse);
         }
 
-        [HttpGet("{gameId:int}/download")]
-        public IActionResult DownloadGame(int gameId)
+        [HttpGet("{id:int}/download")]
+        public IActionResult DownloadGame(int id)
         {
-            var content = $"Game ID: {gameId}\nDownloaded at: {DateTime.UtcNow}";
+            var content = $"Game ID: {id}\nDownloaded at: {DateTime.UtcNow}";
 
             var bytes = System.Text.Encoding.UTF8.GetBytes(content);
 
-            var fileName = $"game_{gameId}.txt";
+            var fileName = $"game_{id}.txt";
 
             return File(bytes, "text/plain", fileName);
         }

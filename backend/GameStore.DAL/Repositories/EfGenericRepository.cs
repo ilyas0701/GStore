@@ -19,14 +19,14 @@ namespace GameStore.DAL.Repositories
             return await _dbSet.AsNoTracking().Where(predicate).ToListAsync(cancellationToken);
         }
         
-        public async Task<TEntity?> FindById(int id)
+        public async Task<TEntity?> FindById(int id, CancellationToken cancellationToken)
         {
-            return await _dbSet.FindAsync(id);
+            return await _dbSet.FindAsync(new object[id], cancellationToken);
         }
 
-        public async void Create(TEntity item)
+        public void Create(TEntity item)
         {
-            await _dbSet.AddAsync(item);
+            _dbSet.Add(item);
         }
 
         public void Update(TEntity item)
