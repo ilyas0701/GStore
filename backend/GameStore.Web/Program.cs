@@ -35,6 +35,8 @@ namespace GameStore.Web
                 options.Preload = true;
             });
 
+            builder.Services.AddOutputCache();
+
             var app = builder.Build();
 
             app.MapHealthChecks("/healthz");
@@ -43,6 +45,8 @@ namespace GameStore.Web
             {
                 app.UseHsts();
             }
+
+            app.UseOutputCache();
 
             using (var scope = app.Services.CreateScope())
             {

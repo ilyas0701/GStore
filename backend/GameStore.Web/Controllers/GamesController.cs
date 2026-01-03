@@ -10,6 +10,7 @@ namespace GameStore.Web.Controllers
     public class GamesController(IGameService gameService, ICommentService commentService) : Controller
     {
         [HttpGet]
+        [ResponseCache(Duration = 60)]
         public async Task<IActionResult> GetGames(CancellationToken cancellationToken)
         {
             var games = await gameService.GetAllGamesAsync(cancellationToken);
@@ -51,6 +52,7 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [ResponseCache(VaryByQueryKeys = ["id"], Duration = 60)]
         public async Task<IActionResult> GetGameById(int id, CancellationToken cancellationToken)
         {
             var game = await gameService.GetGameByIdAsync(id, cancellationToken);
