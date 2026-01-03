@@ -35,7 +35,7 @@ namespace GameStore.Web
                 options.Preload = true;
             });
 
-            builder.Services.AddOutputCache();
+            builder.Services.AddResponseCaching();
 
             var app = builder.Build();
 
@@ -46,8 +46,6 @@ namespace GameStore.Web
                 app.UseHsts();
             }
 
-            app.UseOutputCache();
-
             using (var scope = app.Services.CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<GStoreDatabaseContext>();
@@ -56,6 +54,7 @@ namespace GameStore.Web
 
             app.UseMiddleware<ExceptionHandlingMiddleware>()
                 .UseHttpsRedirection()
+                .UseResponseCaching()
                 .UseStaticFiles()
                 .UseRouting()
                 .UseAuthentication()

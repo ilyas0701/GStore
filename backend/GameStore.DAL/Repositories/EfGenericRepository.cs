@@ -21,7 +21,7 @@ namespace GameStore.DAL.Repositories
         
         public async Task<TEntity?> FindById(int id, CancellationToken cancellationToken)
         {
-            return await _dbSet.FindAsync(new object[id], cancellationToken);
+            return await _dbSet.FindAsync([id], cancellationToken);
         }
 
         public void Create(TEntity item)
