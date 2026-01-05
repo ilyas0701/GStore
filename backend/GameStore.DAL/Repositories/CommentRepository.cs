@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GameStore.DAL.Repositories
 {
-    public class CommentRepository : EFGenericRepository<DbComment>, ICommentRepository
+    public class CommentRepository : EfGenericRepository<DbComment>, ICommentRepository
     {
         public CommentRepository(DbContext context) : base(context)
         {

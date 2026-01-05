@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GameStore.DAL.Repositories
 {
-    public class PlatformTypeRepository : EFGenericRepository<DbPlatformType>, IPlatformTypeRepository
+    public class PlatformTypeRepository : EfGenericRepository<DbPlatformType>, IPlatformTypeRepository
     {
         public PlatformTypeRepository(DbContext context) : base(context)
         {

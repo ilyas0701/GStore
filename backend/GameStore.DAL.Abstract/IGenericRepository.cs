@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 
 namespace GameStore.DAL.Abstract
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {
         void Create(TEntity item);
-        TEntity FindById(int id);
-        IEnumerable<TEntity> Get();
-        IEnumerable<TEntity> Get(Func<TEntity, bool> predicate);
+        Task<TEntity?> FindById(int id, CancellationToken cancellationToken);
+        Task<IEnumerable<TEntity>> GetAsync(CancellationToken cancellationToken);
+        Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
         void Remove(TEntity item);
         void Update(TEntity item);
+        IQueryable<TEntity> GetQueryable(Expression<Func<TEntity, bool>> predicate);
     }
 }

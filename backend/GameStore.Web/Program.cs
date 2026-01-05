@@ -1,6 +1,10 @@
-
+using GameStore.BLL;
+using GameStore.BLL.Abstract;
 using GameStore.DAL;
+using GameStore.DAL.Abstract;
+using GameStore.Web.Middleware;
 using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
 
 namespace GameStore.Web
 {
@@ -12,14 +16,53 @@ namespace GameStore.Web
 
             builder.Services.AddControllers();
 
+            builder.Services.AddOpenApi();
+
+            builder.Services.AddHealthChecks();
+
             builder.Services.AddDbContext<GStoreDatabaseContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("GStoreConnection")));
 
+            // Register BLL services
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IGameService, GameService>();
+            builder.Services.AddScoped<ICommentService, CommentService>();
+
+            builder.Services.AddHsts(options =>
+            {
+                options.MaxAge = TimeSpan.FromDays(365);
+                options.IncludeSubDomains = true;
+                options.Preload = true;
+            });
+
+            builder.Services.AddResponseCaching();
+
             var app = builder.Build();
 
-            app.UseHttpsRedirection();
+            app.MapHealthChecks("/healthz");
 
-            app.UseAuthorization();
+            if (!app.Environment.IsDevelopment())
+            {
+                app.UseHsts();
+            }
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<GStoreDatabaseContext>();
+                context.Database.Migrate();
+            }
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>()
+                .UseHttpsRedirection()
+                .UseResponseCaching()
+                .UseStaticFiles()
+                .UseRouting()
+                .UseAuthentication()
+                .UseAuthorization();
+            
+            // Enable OpenAPI and Scalar API
+            app.MapOpenApi().CacheOutput();
+            app.MapScalarApiReference();
 
             app.MapControllers();
 
