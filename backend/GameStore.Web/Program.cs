@@ -2,7 +2,7 @@ using GameStore.BLL;
 using GameStore.BLL.Abstract;
 using GameStore.DAL;
 using GameStore.DAL.Abstract;
-using GameStore.Web.Middleware;
+using GameStore.Web.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -52,7 +52,7 @@ namespace GameStore.Web
                 context.Database.Migrate();
             }
 
-            app.UseMiddleware<ExceptionHandlingMiddleware>()
+            app.UseExceptionHandling()
                 .UseHttpsRedirection()
                 .UseResponseCaching()
                 .UseStaticFiles()

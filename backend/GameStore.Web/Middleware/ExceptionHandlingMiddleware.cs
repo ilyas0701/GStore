@@ -1,6 +1,4 @@
 using GameStore.Utils.Exceptions;
-using GameStore.Utils.Extensions;
-using GameStore.Utils.Models;
 using System.Net;
 
 namespace GameStore.Web.Middleware;
