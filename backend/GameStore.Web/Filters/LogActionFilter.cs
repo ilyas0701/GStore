@@ -16,40 +16,17 @@ namespace GameStore.Web.Filters
             var elapsedMilliseconds = _stopwatch.ElapsedMilliseconds;
 
             var actionName = context.ActionDescriptor.RouteValues["action"];
-            var requestType = context.HttpContext.Request.Method;
 
-            var message = $"[{requestType} {actionName}] Action took: {elapsedMilliseconds}ms";
-            var ipAddress = GetIPAddress(context);
+            var ipAddress = GetIpAddress(context);
 
-            if (!string.IsNullOrEmpty(ipAddress))
-            {
-                message += $" Client IP: {ipAddress}.";
-            }
-
-            logger.LogInformation(message);
+            logger.LogInformation("[{0}] Action took: {1}ms; Client IP: {2}", actionName, elapsedMilliseconds, ipAddress);
         }
 
-        private string GetIPAddress(ActionExecutingContext context)
+        private string GetIpAddress(ActionExecutingContext context)
         {
-            var forwardedFor = context.HttpContext.Request.Headers["X-Forwarded-For"].FirstOrDefault();
-            if (!string.IsNullOrEmpty(forwardedFor))
-            {
-                return forwardedFor.Split(',').First().Trim();
-            }
+            var remoteIp = context.HttpContext.Connection.RemoteIpAddress?.ToString();
 
-            var remoteIp = context.HttpContext.Connection.RemoteIpAddress;
-
-            if (remoteIp == null)
-            {
-                return "Unknown";
-            }
-
-            if (remoteIp.IsIPv4MappedToIPv6)
-            {
-                remoteIp = remoteIp.MapToIPv4();
-            }
-
-            return remoteIp.ToString();
+            return remoteIp ?? "Unknown";
         }
     }
 }
