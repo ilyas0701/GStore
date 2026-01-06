@@ -38,7 +38,7 @@ namespace GameStore.Web
                 options.Preload = true;
             });
 
-            builder.Services.AddResponseCaching();
+            builder.Services.AddOutputCache();
 
             var app = builder.Build();
 
@@ -57,9 +57,9 @@ namespace GameStore.Web
 
             app.UseExceptionHandling()
                 .UseHttpsRedirection()
-                .UseResponseCaching()
                 .UseStaticFiles()
                 .UseRouting()
+                .UseOutputCache()
                 .UseAuthentication()
                 .UseAuthorization();
             
