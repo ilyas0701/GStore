@@ -19,7 +19,7 @@ namespace GameStore.Web.Filters
 
             var ipAddress = GetIpAddress(context);
 
-            logger.LogInformation("[{0}] Action took: {1}ms; Client IP: {2}", actionName, elapsedMilliseconds, ipAddress);
+            logger.LogInformation("[{ActionName}] Action took: {Time}ms; Client IP: {IPAddress}", actionName, elapsedMilliseconds, ipAddress);
         }
 
         private string GetIpAddress(ActionExecutingContext context)
