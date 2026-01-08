@@ -2,15 +2,19 @@
 using GameStore.Models.DTO;
 using GameStore.Web.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 
 namespace GameStore.Web.Controllers
 {
     [ApiController]
     [Route("api/v1/games")]
-    public class GamesController(IGameService gameService, ICommentService commentService) : Controller
+    public class GamesController(
+        IGameService gameService, 
+        ICommentService commentService,
+        IOutputCacheStore outputCacheStore) : Controller
     {
         [HttpGet]
-        [ResponseCache(Duration = 60)]
+        [OutputCache(Duration = 60, Tags = ["games-list"])]
         public async Task<IActionResult> GetGames(CancellationToken cancellationToken)
         {
             var games = await gameService.GetAllGamesAsync(cancellationToken);
@@ -48,11 +52,14 @@ namespace GameStore.Web.Controllers
                 gameResponse.ReleaseAtDate
             ), cancellationToken);
 
+
+            await outputCacheStore.EvictByTagAsync("games-list", cancellationToken);
+
             return CreatedAtAction(nameof(GetGames), new { id = gameResponse.Id }, gameResponse);
         }
 
         [HttpGet("{id:int}")]
-        [ResponseCache(VaryByQueryKeys = ["id"], Duration = 60)]
+        [OutputCache(Duration = 60)]
         public async Task<IActionResult> GetGameById(int id, CancellationToken cancellationToken)
         {
             var game = await gameService.GetGameByIdAsync(id, cancellationToken);
@@ -67,6 +74,8 @@ namespace GameStore.Web.Controllers
                 game.ImgUrl,
                 game.ReleaseAtDate
             );
+
+            HttpContext.Response.Headers.Append("Cache-Tag", $"game-{id}");
 
             return Ok(response);
         }
@@ -85,6 +94,9 @@ namespace GameStore.Web.Controllers
                 gameResponse.ReleaseAtDate
             ), cancellationToken);
 
+            await outputCacheStore.EvictByTagAsync("games-list", cancellationToken);
+            await outputCacheStore.EvictByTagAsync($"game-{id}", cancellationToken);
+
             return Accepted();
         }
 
@@ -92,6 +104,9 @@ namespace GameStore.Web.Controllers
         public async Task<IActionResult> RemoveGameInfo(int id, CancellationToken cancellationToken)
         {
             await gameService.RemoveGame(id, cancellationToken);
+
+            await outputCacheStore.EvictByTagAsync("games-list", cancellationToken);
+            await outputCacheStore.EvictByTagAsync($"game-{id}", cancellationToken);
 
             return Accepted();
         }

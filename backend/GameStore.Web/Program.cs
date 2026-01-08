@@ -2,7 +2,8 @@ using GameStore.BLL;
 using GameStore.BLL.Abstract;
 using GameStore.DAL;
 using GameStore.DAL.Abstract;
-using GameStore.Web.Middleware;
+using GameStore.Web.Extensions;
+using GameStore.Web.Filters;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -23,6 +24,8 @@ namespace GameStore.Web
             builder.Services.AddDbContext<GStoreDatabaseContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("GStoreConnection")));
 
+            builder.Services.AddMvc(options => options.Filters.Add(typeof(LogActionFilter)));
+
             // Register BLL services
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IGameService, GameService>();
@@ -35,7 +38,7 @@ namespace GameStore.Web
                 options.Preload = true;
             });
 
-            builder.Services.AddResponseCaching();
+            builder.Services.AddOutputCache();
 
             var app = builder.Build();
 
@@ -52,11 +55,11 @@ namespace GameStore.Web
                 context.Database.Migrate();
             }
 
-            app.UseMiddleware<ExceptionHandlingMiddleware>()
+            app.UseExceptionHandling()
                 .UseHttpsRedirection()
-                .UseResponseCaching()
                 .UseStaticFiles()
                 .UseRouting()
+                .UseOutputCache()
                 .UseAuthentication()
                 .UseAuthorization();
             
