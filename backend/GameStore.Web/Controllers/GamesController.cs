@@ -59,6 +59,7 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [OutputCache(Duration = 60)]
         public async Task<IActionResult> GetGameById(int id, CancellationToken cancellationToken)
         {
             var game = await gameService.GetGameByIdAsync(id, cancellationToken);
@@ -73,6 +74,8 @@ namespace GameStore.Web.Controllers
                 game.ImgUrl,
                 game.ReleaseAtDate
             );
+
+            HttpContext.Response.Headers.Append("Cache-Tag", $"game-{id}");
 
             return Ok(response);
         }
@@ -92,6 +95,7 @@ namespace GameStore.Web.Controllers
             ), cancellationToken);
 
             await outputCacheStore.EvictByTagAsync("games-list", cancellationToken);
+            await outputCacheStore.EvictByTagAsync($"game-{id}", cancellationToken);
 
             return Accepted();
         }
@@ -102,6 +106,7 @@ namespace GameStore.Web.Controllers
             await gameService.RemoveGame(id, cancellationToken);
 
             await outputCacheStore.EvictByTagAsync("games-list", cancellationToken);
+            await outputCacheStore.EvictByTagAsync($"game-{id}", cancellationToken);
 
             return Accepted();
         }
