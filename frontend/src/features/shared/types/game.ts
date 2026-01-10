@@ -1,9 +1,9 @@
-interface Genre {
+export interface Genre {
   id: string
   name: string
 }
 
-interface PlatformType {
+export interface PlatformType {
   id: string
   type: string
 }
@@ -16,9 +16,18 @@ export interface Game {
   price: number
   genre: Genre[]
   platform: PlatformType[]
-  image_url?: string | null
+  image_url: string
   released_at: Date
 }
 
+export interface GameRaw {
+  id: number | string
+  title: string
+  description: string
+  genre: string
+  price: string | number | null
+  image_url: string | null
+}
+
 export interface GameCompact
-  extends Omit<Game, "genre" | "platform" | "developer" | "released_at"> {}
+  extends Omit<Game, "platform" | "developer" | "released_at"> {}

@@ -6,7 +6,6 @@ const API_URL = null
 
 export const fetchUsers = async (): Promise<UserDTO[]> => {
   if (!API_URL) {
-    await new Promise((resolve) => setTimeout(resolve, 100))
     return users
   } else {
     const response = await fetch(`${API_URL}/users`, {
@@ -18,8 +17,8 @@ export const fetchUsers = async (): Promise<UserDTO[]> => {
     })
 
     if (!response.ok) {
-      const errorDetails = `Status: ${response.status} ${response.statusText}`;
-      throw new Error(`Failed to fetch users. ${errorDetails}`);
+      const errorDetails = `Status: ${response.status} ${response.statusText}`
+      throw new Error(`Failed to fetch users. ${errorDetails}`)
     }
 
     return response.json()

@@ -1,7 +1,17 @@
 .game-gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  max-width: 600px;
+
+  .game-gallery-image {
     max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+    max-height: 300px;
+  }
+  img {
+    border-radius: 0.5rem;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
 }

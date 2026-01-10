@@ -1,9 +1,18 @@
 .game-list {
-  max-width: 1000px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  align-items: center;
+  gap: 30px;
+  max-width: 1000px;
+
+  .loading-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 0 auto;
+    padding: 1rem;
+    max-width: 1200px;
+  }
 }
