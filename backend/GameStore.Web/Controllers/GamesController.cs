@@ -11,12 +11,15 @@ namespace GameStore.Web.Controllers
     public class GamesController(
         IGameService gameService, 
         ICommentService commentService,
-        IOutputCacheStore outputCacheStore) : Controller
+        IOutputCacheStore outputCacheStore,
+        ILogger<GamesController> logger) : Controller
     {
-        [HttpGet]
+        [HttpGet(Name = "GetGames")]
         [OutputCache(Duration = 60, Tags = ["games-list"])]
         public async Task<IActionResult> GetGames(CancellationToken cancellationToken)
         {
+            logger.LogInformation("Requesting All Games...");
+
             var games = await gameService.GetAllGamesAsync(cancellationToken);
 
             var response = games.Select(g => new GameResponse
