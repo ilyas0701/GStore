@@ -30,7 +30,18 @@ namespace GameStore.DAL.Configurations
                 .IsRequired()
                 .HasColumnType("decimal(18,2)");
 
+            builder.Property(g => g.UnitsInStock)
+                .IsRequired();
+
+            builder.Property(g => g.Discontinued)
+                .IsRequired();
+
             builder.Property(g => g.ImgUrl).HasMaxLength(300);
+
+            builder.HasOne(g => g.Publisher)
+                .WithMany(g => g.Games)
+                .HasForeignKey(g => g.PublisherId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Property(g => g.ReleaseAtDate)
                 .IsRequired()
