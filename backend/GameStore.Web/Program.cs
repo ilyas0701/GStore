@@ -17,8 +17,6 @@ namespace GameStore.Web
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Logging.ClearProviders();
-
             builder.Host.UseNLog();
 
             builder.Services.AddControllers();
