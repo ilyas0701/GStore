@@ -5,7 +5,9 @@ using GameStore.DAL.Abstract;
 using GameStore.Web.Extensions;
 using GameStore.Web.Filters;
 using Microsoft.EntityFrameworkCore;
+using NLog.Web;
 using Scalar.AspNetCore;
+
 
 namespace GameStore.Web
 {
@@ -14,6 +16,8 @@ namespace GameStore.Web
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Host.UseNLog();
 
             builder.Services.AddControllers();
 
