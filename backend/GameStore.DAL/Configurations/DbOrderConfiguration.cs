@@ -13,7 +13,7 @@ namespace GameStore.DAL.Configurations
             builder.Property(o => o.Id)
                 .ValueGeneratedOnAdd();
 
-            builder.Property(o => o.CustomerId)\
+            builder.Property(o => o.CustomerId)
                 .IsRequired();
 
             builder.Property(o => o.OrderDate)

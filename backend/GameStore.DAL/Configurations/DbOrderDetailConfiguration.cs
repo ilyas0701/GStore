@@ -8,7 +8,7 @@ namespace GameStore.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<DbOrderDetail> builder)
         {
-            builder.ToTable("Order Details");
+            builder.ToTable("Order_Details");
 
             builder.Property(o => o.Id)
                 .ValueGeneratedOnAdd();
