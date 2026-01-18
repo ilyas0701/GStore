@@ -9,7 +9,7 @@ namespace GameStore.DAL.Repositories
     {
         private readonly DbSet<TEntity> _dbSet = context.Set<TEntity>();
 
-        public async Task<IEnumerable<TEntity>> GetAsync(CancellationToken cancellationToken)
+        public virtual async Task<IEnumerable<TEntity>> GetAsync(CancellationToken cancellationToken)
         {
             return await _dbSet.AsNoTracking().ToListAsync(cancellationToken);
         }
@@ -19,7 +19,7 @@ namespace GameStore.DAL.Repositories
             return await _dbSet.AsNoTracking().Where(predicate).ToListAsync(cancellationToken);
         }
         
-        public async Task<TEntity?> FindById(int id, CancellationToken cancellationToken)
+        public virtual async Task<TEntity?> FindById(int id, CancellationToken cancellationToken)
         {
             return await _dbSet.FindAsync([id], cancellationToken);
         }

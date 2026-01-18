@@ -19,18 +19,29 @@ namespace GameStore.BLL
                 g.Description,
                 g.Developer,
                 g.Price,
+                g.UnitsInStock,
+                g.Discontinued,
+                g.PublisherId,
+                new PublisherDto(
+                    g.Publisher.Id,
+                    g.Publisher.CompanyName,
+                    g.Publisher.Description,
+                    g.Publisher.HomePage),
                 g.ImgUrl,
                 g.ReleaseAtDate
             ));
         }
 
-        public async Task CreateGameAsync(GameDto gameDto, CancellationToken cancellationToken)
+        public async Task CreateGameAsync(CreateGameRequest gameDto, CancellationToken cancellationToken)
         {
             var game = new DbGame
             {
                 Title = gameDto.Title,
                 Description = gameDto.Description,
                 Developer = gameDto.Developer,
+                UnitsInStock = gameDto.UnitsInStock,
+                Discontinued = gameDto.Discontinued,
+                PublisherId = gameDto.PublisherId,
                 Price = gameDto.Price,
                 ImgUrl = gameDto.ImgUrl,
                 ReleaseAtDate = gameDto.ReleaseAtDate
@@ -55,12 +66,20 @@ namespace GameStore.BLL
                 game.Description,
                 game.Developer,
                 game.Price,
+                game.UnitsInStock,
+                game.Discontinued,
+                game.PublisherId,
+                new PublisherDto(
+                    game.Publisher.Id, 
+                    game.Publisher.CompanyName, 
+                    game.Publisher.Description, 
+                    game.Publisher.HomePage),
                 game.ImgUrl,
                 game.ReleaseAtDate
             );
         }
 
-        public async Task UpdateGameInfo(GameDto gameDto, CancellationToken cancellationToken)
+        public async Task UpdateGameInfo(CreateGameRequest gameDto, CancellationToken cancellationToken)
         {
             var game = await unitOfWork.GameRepository.FindById(gameDto.Id, cancellationToken);
 
@@ -73,6 +92,7 @@ namespace GameStore.BLL
             game.Description = gameDto.Description;
             game.Developer = gameDto.Developer;
             game.Price = gameDto.Price;
+            game.PublisherId = gameDto.PublisherId;
             game.ImgUrl = gameDto.ImgUrl;
             game.ReleaseAtDate = gameDto.ReleaseAtDate;
 

@@ -6,7 +6,11 @@ namespace GameStore.Models.DTO
         string Title, 
         string Description, 
         string Developer, 
-        decimal Price, 
+        decimal Price,
+        short UnitsInStock,
+        bool Discontinued,
+        int PublisherId,
+        PublisherDto? Publisher,
         string? ImgUrl, 
         DateTime ReleaseAtDate);
 }

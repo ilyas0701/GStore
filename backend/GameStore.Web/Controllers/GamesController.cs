@@ -29,6 +29,14 @@ namespace GameStore.Web.Controllers
                 g.Description,
                 g.Developer,
                 g.Price,
+                g.UnitsInStock,
+                g.Discontinued,
+                g.PublisherId,
+                new PublisherResponse(
+                    g.Publisher!.Id,
+                    g.Publisher.CompanyName,
+                    g.Publisher.Description,
+                    g.Publisher.HomePage),
                 g.ImgUrl,
                 g.ReleaseAtDate
             ));
@@ -37,20 +45,23 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateGame([FromBody] GameResponse? gameResponse, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateGame([FromBody] CreateGameResponse? gameResponse, CancellationToken cancellationToken)
         {
             if (gameResponse == null)
             {
                 return BadRequest("Game data is null.");
             }
 
-            await gameService.CreateGameAsync(new GameDto
+            await gameService.CreateGameAsync(new CreateGameRequest
             (
                 0,
                 gameResponse.Title,
                 gameResponse.Description,
                 gameResponse.Developer,
                 gameResponse.Price,
+                gameResponse.UnitsInStock,
+                gameResponse.Discontinued,
+                gameResponse.PublisherId,
                 gameResponse.ImgUrl,
                 gameResponse.ReleaseAtDate
             ), cancellationToken);
@@ -74,6 +85,14 @@ namespace GameStore.Web.Controllers
                 game.Description,
                 game.Developer,
                 game.Price,
+                game.UnitsInStock,
+                game.Discontinued,
+                game.PublisherId,
+                new PublisherResponse(
+                    game.Publisher!.Id,
+                    game.Publisher.CompanyName,
+                    game.Publisher.Description,
+                    game.Publisher.HomePage),
                 game.ImgUrl,
                 game.ReleaseAtDate
             );
@@ -84,15 +103,18 @@ namespace GameStore.Web.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateGameInfo(int id, [FromBody] GameResponse gameResponse, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateGameInfo(int id, [FromBody]  CreateGameResponse gameResponse, CancellationToken cancellationToken)
         {
-            await gameService.UpdateGameInfo(new GameDto
+            await gameService.UpdateGameInfo(new CreateGameRequest
             (
                 id,
                 gameResponse.Title,
                 gameResponse.Description,
                 gameResponse.Developer,
                 gameResponse.Price,
+                gameResponse.UnitsInStock,
+                gameResponse.Discontinued,
+                gameResponse.PublisherId,
                 gameResponse.ImgUrl,
                 gameResponse.ReleaseAtDate
             ), cancellationToken);
