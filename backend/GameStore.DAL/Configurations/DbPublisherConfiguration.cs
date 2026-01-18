@@ -8,7 +8,7 @@ namespace GameStore.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<DbPublisher> builder)
         {
-            builder.ToTable("Publisher");
+            builder.ToTable("Publishers");
 
             builder.Property(p => p.Id)
                 .ValueGeneratedOnAdd();
