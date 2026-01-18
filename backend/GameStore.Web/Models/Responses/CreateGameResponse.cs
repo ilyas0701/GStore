@@ -1,15 +1,13 @@
 ﻿namespace GameStore.Web.Models.Responses
 {
-    public record GameResponse(int Id, 
-        string Title, 
-        string Description, 
-        string Developer, 
+    public record CreateGameResponse(int Id,
+        string Title,
+        string Description,
+        string Developer,
         decimal Price,
         short UnitsInStock,
         bool Discontinued,
         int PublisherId,
-        PublisherResponse Publisher,
-        string? ImgUrl, 
+        string? ImgUrl,
         DateTime ReleaseAtDate);
 }
- 

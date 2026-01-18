@@ -2,8 +2,7 @@
 
 namespace GameStore.DAL.Abstract
 {
-    public interface IGameRepository : IGenericRepository<DbGame>
+    public interface IPublisherRepository : IGenericRepository<DbPublisher>
     {
-
     }
 }

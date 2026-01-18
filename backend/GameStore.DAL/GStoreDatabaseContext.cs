@@ -10,6 +10,9 @@ namespace GameStore.DAL
         public DbSet<DbComment> Comments { get; set; }
         public DbSet<DbGenre> Genres { get; set; }
         public DbSet<DbPlatformType> PlatformTypes { get; set; }
+        public DbSet<DbPublisher> Publishers { get; set; }
+        public DbSet<DbOrder> Orders { get; set; }
+        public DbSet<DbOrderDetail> OrderDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -19,6 +22,9 @@ namespace GameStore.DAL
             modelBuilder.ApplyConfiguration(new DbCommentConfiguration());
             modelBuilder.ApplyConfiguration(new DbGenreConfiguration());
             modelBuilder.ApplyConfiguration(new DbPlatformTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new DbPublisherConfiguration());
+            modelBuilder.ApplyConfiguration(new DbOrderConfiguration());
+            modelBuilder.ApplyConfiguration(new DbOrderDetailConfiguration());
 
             SeedData(modelBuilder);
         }

@@ -1,25 +1,18 @@
 ﻿using GameStore.DAL.Abstract;
 using GameStore.DAL.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace GameStore.DAL
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork(GStoreDatabaseContext context) : IUnitOfWork
     {
-        private readonly GStoreDatabaseContext _context;
+        private readonly GStoreDatabaseContext _context = context ?? throw new ArgumentNullException(nameof(context));
 
-        public UnitOfWork(GStoreDatabaseContext context)
-        {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
-            GameRepository = new GameRepository(context);
-            CommentRepository = new CommentRepository(context);
-            GenreRepository = new GenreRepository(context);
-            PlatformTypeRepository = new PlatformTypeRepository(context);
-        }
-        public IGameRepository GameRepository { get; }
-        public ICommentRepository CommentRepository { get; }
-        public IGenreRepository GenreRepository { get; }
-        public IPlatformTypeRepository PlatformTypeRepository { get; }
+        public IGameRepository GameRepository { get; } = new GameRepository(context);
+        public ICommentRepository CommentRepository { get; } = new CommentRepository(context);
+        public IGenreRepository GenreRepository { get; } = new GenreRepository(context);
+        public IPlatformTypeRepository PlatformTypeRepository { get; } = new PlatformTypeRepository(context);
+        public IOrderRepository OrderRepository { get; } = new OrderRepository(context);
+        public IPublisherRepository PublisherRepository { get; } = new PublisherRepository(context);
 
         public Task CommitAsync(CancellationToken cancellationToken)
         {
