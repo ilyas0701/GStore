@@ -1,27 +1,29 @@
 import type { GameCompact } from "@/features/shared/types/game"
-import Image from "next/image"
 import Link from "next/link"
+import { memo, useMemo } from "react"
+import { GameImage } from "@/features/games/components/GameCard/GameImage"
+import { areEqual } from "@/features/games/utils/comparator"
+import { formatPrice } from "@/features/games/utils/price"
 import { Badge } from "@/features/shared/components/Badge"
-import "./styles.scss"
+import "./styles/styles.scss"
 
-export const GameCard = ({ game }: { game: GameCompact }) => {
+interface GameCardProps {
+  game: GameCompact
+}
+
+export const GameCardComponent = ({ game }: GameCardProps) => {
+  const price = useMemo(() => formatPrice(game.price || 0), [game.price])
+
   return (
     <Link href={`/store/${game.id}`}>
       <div className="store-card">
-        <div className="game-image">
-          <Image
-            src={game.image_url || "/placeholder.png"}
-            alt={game.title}
-            width={260}
-            height={160}
-            priority
-            draggable={false}
-          />
-        </div>
+        <GameImage imageUrl={game.image_url} title={game.title} />
         <h2>{game.title}</h2>
         <p>{game.description}</p>
-        <Badge text={`$${game.price}`} />
+        <Badge text={price} />
       </div>
     </Link>
   )
 }
+
+export const GameCard = memo<GameCardProps>(GameCardComponent, areEqual)

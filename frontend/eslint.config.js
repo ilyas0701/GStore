@@ -46,6 +46,7 @@ export default antfu(
       ...nextPlugin.configs["core-web-vitals"].rules,
       "antfu/no-top-level-await": "off",
       "style/brace-style": ["error", "1tbs"],
+      "node/prefer-global/process": "off",
       "ts/consistent-type-definitions": ["error", "type"],
       "react/prefer-destructuring-assignment": "off",
       "n/no-process-env": "off",

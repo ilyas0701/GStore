@@ -19,14 +19,17 @@ header {
     gap: 36px;
     list-style-type: none;
 
-    a {
-      transition: font-size 0.25s ease-in-out;
+    li {
+      transform-origin: center;
+      transition: transform 0.15s ease-in-out;
+      will-change: transform;
       font-size: 1.75rem;
+
       &:hover {
-        font-size: 1.8rem;
+        transform: scale(1.1);
       }
       &:active {
-        font-size: 1.7rem;
+        transform: scale(0.95);
       }
     }
   }

@@ -1,15 +1,19 @@
 .game-page {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  .game-details {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 2rem;
 
-    h1 {
-        font-size: 3rem;
+    .game-purchase {
+      margin-top: auto;
     }
-
-    .game-details {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-    }
+  }
 }
